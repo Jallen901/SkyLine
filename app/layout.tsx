@@ -1,10 +1,17 @@
 import type { Metadata } from 'next';
-import { Playfair_Display, JetBrains_Mono, Inter } from 'next/font/google';
+import { Bebas_Neue, Montserrat, JetBrains_Mono } from 'next/font/google';
 import './globals.css';
 
-const playfair = Playfair_Display({
+const bebas = Bebas_Neue({
+  weight: '400',
   subsets: ['latin'],
-  variable: '--font-playfair',
+  variable: '--font-bebas',
+  display: 'swap',
+});
+
+const montserrat = Montserrat({
+  subsets: ['latin'],
+  variable: '--font-montserrat',
   display: 'swap',
 });
 
@@ -14,18 +21,14 @@ const jetbrains = JetBrains_Mono({
   display: 'swap',
 });
 
-const inter = Inter({
-  subsets: ['latin'],
-  variable: '--font-inter',
-  display: 'swap',
-});
-
 export const metadata: Metadata = {
-  title: 'Your Name — Software Engineer',
-  description: 'Senior engineer who builds things that scale.',
+  title: 'Skyline Intel — Clarity From Above',
+  description:
+    'Aerial inspections, roof & solar panel assessments, construction monitoring, and data analytics. FAA Part 107 certified. Miami, FL.',
   openGraph: {
-    title: 'Your Name — Software Engineer',
-    description: 'Senior engineer who builds things that scale.',
+    title: 'Skyline Intel — Clarity From Above',
+    description:
+      'Aerial intelligence and full property solutions for Miami and beyond.',
     type: 'website',
   },
 };
@@ -38,9 +41,9 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${playfair.variable} ${jetbrains.variable} ${inter.variable}`}
+      className={`${bebas.variable} ${montserrat.variable} ${jetbrains.variable}`}
     >
-      <body className="bg-[#0a0a0a] text-neutral-100 antialiased">{children}</body>
+      <body className="bg-brand-dark text-[#e8edf5] antialiased">{children}</body>
     </html>
   );
 }

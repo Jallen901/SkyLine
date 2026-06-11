@@ -3,40 +3,60 @@
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 
-const projects = [
+const services = [
   {
-    name: 'Stealth SaaS',
-    year: '2024',
-    description: 'Zero-to-one B2B platform handling real-time data ingestion at millions of events per day.',
-    stack: ['Go', 'Kafka', 'PostgreSQL', 'Next.js'],
-    caseStudy: '#',
+    name: 'Aerial Inspections',
+    tag: '01',
+    description:
+      'High-resolution drone inspections for roofs, exteriors, and hard-to-reach areas — full coverage without ladders or scaffolding.',
+    details: ['4K HDR Imagery', 'Thermal Overlay', 'FAA Certified Pilot'],
+    link: '#contact',
   },
   {
-    name: 'Open Source Tool',
-    year: '2023',
-    description: 'CLI developer tool for managing multi-environment configs — 4k GitHub stars in 6 months.',
-    stack: ['Rust', 'CLI', 'WASM'],
-    caseStudy: '#',
+    name: 'Roof Inspections',
+    tag: '02',
+    description:
+      'Identify damage, wear, and structural issues before they become costly. Detailed PDF reports with annotated imagery delivered in 48 hours.',
+    details: ['360° Coverage', 'AI-Assisted Analysis', 'Insurance-Ready Report'],
+    link: '#contact',
   },
   {
-    name: 'Internal Platform',
-    year: '2022',
-    description: 'Internal developer platform that reduced deployment time from 40 minutes to under 3.',
-    stack: ['Kubernetes', 'Terraform', 'Python', 'React'],
-    caseStudy: '#',
+    name: 'Solar Panel Inspections',
+    tag: '03',
+    description:
+      'Thermal imaging reveals hot spots, microcracks, and shading losses invisible to the eye. Catch efficiency killers before they cost you.',
+    details: ['Thermal Imaging', 'Performance Data', 'Defect Mapping'],
+    link: '#contact',
   },
   {
-    name: 'API Infrastructure',
-    year: '2021',
-    description: 'Rebuilt a legacy REST API into a GraphQL gateway serving 50M monthly requests.',
-    stack: ['Node.js', 'GraphQL', 'Redis', 'AWS'],
-    caseStudy: '#',
+    name: 'Construction Monitoring',
+    tag: '04',
+    description:
+      'Regular aerial documentation keeps stakeholders aligned and catches schedule slips early. 3D mapping and progress tracking included.',
+    details: ['3D Mapping', 'Progress Tracking', 'Stakeholder Portal'],
+    link: '#contact',
+  },
+  {
+    name: 'Photography & Video',
+    tag: '05',
+    description:
+      'Professional aerial visuals for marketing, documentation, and insurance. Cinematic drone footage and high-res stills, edited and delivered fast.',
+    details: ['4K Cinematic', 'Edited Delivery', 'Same-Day Rush Available'],
+    link: '#contact',
+  },
+  {
+    name: 'Data Analytics',
+    tag: '06',
+    description:
+      'Raw data transformed into actionable intelligence. GIS mapping, site analysis, and reporting you can take straight to planning committees.',
+    details: ['GIS Mapping', 'Site Analysis', 'PDF + CAD Export'],
+    link: '#contact',
   },
 ];
 
 export default function Work() {
   return (
-    <section id="work" className="py-28 overflow-hidden">
+    <section id="services" className="py-28 overflow-hidden">
       <motion.div
         initial={{ y: 20, opacity: 0 }}
         whileInView={{ y: 0, opacity: 1 }}
@@ -44,11 +64,14 @@ export default function Work() {
         transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
         className="px-8 max-w-7xl mx-auto mb-12"
       >
-        <span className="font-mono text-xs text-amber-500 tracking-widest uppercase">
-          Selected Work
-        </span>
-        <h2 className="mt-3 font-serif text-3xl text-white font-bold">
-          Projects
+        <div className="flex items-center gap-3 mb-4">
+          <div className="h-px w-10 bg-[#0066FF]" />
+          <span className="font-mono text-xs text-[#0066FF] tracking-[0.25em] uppercase">
+            Our Services
+          </span>
+        </div>
+        <h2 className="font-display text-5xl text-white tracking-wide">
+          More Than Just Footage
         </h2>
       </motion.div>
 
@@ -57,82 +80,94 @@ export default function Work() {
         whileInView={{ y: 0, opacity: 1 }}
         viewport={{ once: true, margin: '-80px' }}
         transition={{ duration: 0.65, ease: [0.16, 1, 0.3, 1], delay: 0.08 }}
-        className="px-8 flex gap-5 overflow-x-auto scrollbar-hide pb-4"
+        className="px-8 flex gap-4 overflow-x-auto scrollbar-hide pb-4"
         style={{ scrollSnapType: 'x mandatory' }}
       >
-        {projects.map((project, i) => (
-          <ProjectCard key={i} project={project} index={i} />
+        {services.map((service, i) => (
+          <ServiceCard key={i} service={service} index={i} />
         ))}
       </motion.div>
     </section>
   );
 }
 
-function ProjectCard({
-  project,
+function ServiceCard({
+  service,
   index,
 }: {
-  project: (typeof projects)[number];
+  service: (typeof services)[number];
   index: number;
 }) {
   const [hovered, setHovered] = useState(false);
 
   return (
     <motion.div
-      initial={{ opacity: 0, y: 16 }}
+      initial={{ opacity: 0, y: 18 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: '-40px' }}
       transition={{
-        delay: index * 0.07,
+        delay: index * 0.06,
         duration: 0.55,
         ease: [0.16, 1, 0.3, 1],
       }}
       animate={{ scale: hovered ? 1.01 : 1 }}
       onHoverStart={() => setHovered(true)}
       onHoverEnd={() => setHovered(false)}
-      className="relative flex-shrink-0 w-[320px] border border-white/[0.06] bg-white/[0.02] p-7 flex flex-col gap-4 cursor-default"
+      className="relative flex-shrink-0 w-[300px] bg-[#0A1A2F] border border-[#0066FF]/10 p-7 flex flex-col gap-5 cursor-default"
       style={{ scrollSnapAlign: 'start' }}
     >
+      {/* Top stripe accent */}
+      <div
+        className="absolute top-0 left-0 right-0 h-[2px]"
+        style={{
+          background: hovered
+            ? 'linear-gradient(90deg, #0066FF, #3385FF)'
+            : 'rgba(0,102,255,0.25)',
+          transition: 'background 0.3s ease',
+        }}
+      />
+
       <div className="flex items-start justify-between">
-        <h3 className="font-serif text-xl text-white font-bold leading-tight">
-          {project.name}
-        </h3>
-        <span className="font-mono text-xs text-neutral-600 mt-1">
-          {project.year}
+        <span className="font-mono text-[10px] text-[#0066FF] tracking-widest">
+          {service.tag}
         </span>
       </div>
 
-      <p className="text-sm text-neutral-400 leading-relaxed font-sans flex-1">
-        {project.description}
+      <h3 className="font-display text-2xl text-white tracking-wide leading-tight">
+        {service.name}
+      </h3>
+
+      <p className="font-sans text-sm text-[#6a8aaa] leading-relaxed flex-1">
+        {service.description}
       </p>
 
-      <div className="flex flex-wrap gap-1.5">
-        {project.stack.map((tag) => (
-          <span
-            key={tag}
-            className="font-mono text-[10px] px-2 py-0.5 border border-white/10 text-neutral-500"
-          >
-            {tag}
-          </span>
+      <div className="flex flex-col gap-1.5">
+        {service.details.map((d) => (
+          <div key={d} className="flex items-center gap-2">
+            <div className="w-1 h-1 bg-[#0066FF] flex-shrink-0" />
+            <span className="font-mono text-[10px] text-[#4a6a88] tracking-wide">
+              {d}
+            </span>
+          </div>
         ))}
       </div>
 
       <AnimatePresence>
         {hovered && (
           <motion.div
-            key="case-study"
+            key="cta"
             initial={{ opacity: 0, height: 0 }}
             animate={{ opacity: 1, height: 'auto' }}
             exit={{ opacity: 0, height: 0 }}
             transition={{ duration: 0.2, ease: 'easeOut' }}
             className="overflow-hidden"
           >
-            <div className="pt-3 border-t border-white/[0.06]">
+            <div className="pt-4 border-t border-[#0066FF]/10">
               <a
-                href={project.caseStudy}
-                className="font-mono text-xs text-amber-500 hover:text-amber-400 transition-colors flex items-center gap-1.5"
+                href={service.link}
+                className="font-sans text-xs font-semibold text-[#0066FF] hover:text-[#3385FF] transition-colors flex items-center gap-2 tracking-wide"
               >
-                Read case study
+                Request this service
                 <svg width="10" height="10" viewBox="0 0 10 10" fill="none">
                   <path
                     d="M1 9L9 1M9 1H3M9 1V7"

@@ -1,20 +1,20 @@
 [
   {
-    "title": "Designing for Failure: Lessons from Running Distributed Systems at Scale",
-    "date": "2024-03-12",
-    "slug": "designing-for-failure",
-    "excerpt": "What three production incidents in a year taught me about building systems that degrade gracefully."
+    "title": "What FAA Part 107 Certification Means for Your Property Inspection",
+    "date": "2024-04-15",
+    "slug": "faa-part-107-certification",
+    "excerpt": "Why working with a certified remote pilot isn't just about compliance — it's about getting accurate, insurable, court-admissible results."
   },
   {
-    "title": "The Underrated Power of Boring Technology",
-    "date": "2024-01-08",
-    "slug": "boring-technology",
-    "excerpt": "Why I stopped chasing new frameworks and fell back in love with proven, unsexy tools."
+    "title": "How Thermal Imaging Finds Solar Panel Defects Invisible to the Naked Eye",
+    "date": "2024-02-20",
+    "slug": "thermal-imaging-solar-panels",
+    "excerpt": "A single thermal pass over a 200-panel array can surface hot spots, microcracks, and shading losses before they cost you thousands."
   },
   {
-    "title": "On Writing Code as Communication",
-    "date": "2023-11-20",
-    "slug": "code-as-communication",
-    "excerpt": "Code is read far more than it is written. Here's how I think about the reader on the other side."
+    "title": "5 Reasons Construction Teams Are Switching to Aerial Progress Monitoring",
+    "date": "2023-12-10",
+    "slug": "aerial-construction-monitoring",
+    "excerpt": "From reducing site visits to catching schedule slips early, drone documentation is changing how major projects get managed."
   }
 ]
