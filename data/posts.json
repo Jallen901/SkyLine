@@ -1,0 +1,20 @@
+[
+  {
+    "title": "Designing for Failure: Lessons from Running Distributed Systems at Scale",
+    "date": "2024-03-12",
+    "slug": "designing-for-failure",
+    "excerpt": "What three production incidents in a year taught me about building systems that degrade gracefully."
+  },
+  {
+    "title": "The Underrated Power of Boring Technology",
+    "date": "2024-01-08",
+    "slug": "boring-technology",
+    "excerpt": "Why I stopped chasing new frameworks and fell back in love with proven, unsexy tools."
+  },
+  {
+    "title": "On Writing Code as Communication",
+    "date": "2023-11-20",
+    "slug": "code-as-communication",
+    "excerpt": "Code is read far more than it is written. Here's how I think about the reader on the other side."
+  }
+]
