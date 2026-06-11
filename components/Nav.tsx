@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
+import SkylineLogo from './SkylineLogo';
 
 const links = [
   { label: 'Services', href: '#services' },
@@ -30,20 +31,8 @@ export default function Nav() {
           : 'bg-transparent',
       ].join(' ')}
     >
-      {/* Wordmark */}
-      <a href="#" className="flex items-center gap-3 group">
-        <div className="flex items-baseline gap-0.5">
-          <span className="font-display text-4xl leading-none text-white">SL</span>
-          <span className="font-display text-4xl leading-none text-[#0066FF]">|</span>
-        </div>
-        <div className="flex flex-col leading-none">
-          <span className="font-display text-base tracking-[0.18em] text-white">
-            SKYLINE
-          </span>
-          <span className="font-mono text-[9px] tracking-[0.28em] text-[#0066FF] mt-px">
-            — INTEL —
-          </span>
-        </div>
+      <a href="#" className="flex items-center hover:opacity-80 transition-opacity">
+        <SkylineLogo variant="full" height={38} darkBg />
       </a>
 
       <div className="flex items-center gap-8">

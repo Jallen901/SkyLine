@@ -2,6 +2,7 @@
 
 import { motion } from 'framer-motion';
 import DotGrid from './DotGrid';
+import SkylineLogo from './SkylineLogo';
 
 const headlineLines = ['CLARITY', 'FROM ABOVE'];
 
@@ -35,12 +36,9 @@ export default function Hero() {
 
       <div className="relative z-10 px-8 w-full max-w-7xl mx-auto">
         <div className="max-w-3xl">
-          {/* Eyebrow */}
-          <motion.div {...fadeUp(0)} className="flex items-center gap-3 mb-6">
-            <div className="h-px w-10 bg-[#0066FF]" />
-            <span className="font-mono text-xs text-[#0066FF] tracking-[0.25em] uppercase">
-              Skyline Intel
-            </span>
+          {/* Logo mark */}
+          <motion.div {...fadeUp(0)} className="mb-8">
+            <SkylineLogo variant="full" height={52} darkBg />
           </motion.div>
 
           {/* Headline */}
