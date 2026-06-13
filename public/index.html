@@ -181,8 +181,202 @@ footer{background:#040d16;border-top:1px solid rgba(0,102,255,0.08);padding:40px
   <div class="footer-copy">© 2025 Skyline Intel. All rights reserved. · Miami, FL</div>
 </footer>
 
+<!-- AI CHAT WIDGET -->
+<style>
+#chat-bubble{position:fixed;bottom:28px;right:28px;z-index:999;display:flex;flex-direction:column;align-items:flex-end;gap:12px;font-family:'Montserrat',sans-serif}
+#chat-toggle{width:56px;height:56px;background:#0066FF;border:none;border-radius:50%;cursor:pointer;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 24px rgba(0,102,255,0.45);transition:background 0.2s,transform 0.2s}
+#chat-toggle:hover{background:#3385FF;transform:scale(1.08)}
+#chat-toggle svg{width:24px;height:24px;fill:white}
+#chat-window{width:340px;background:#0a1828;border:1px solid rgba(0,102,255,0.2);border-radius:12px;overflow:hidden;box-shadow:0 8px 40px rgba(0,0,0,0.5);display:none;flex-direction:column}
+#chat-window.open{display:flex}
+#chat-header{background:#0066FF;padding:14px 18px;display:flex;align-items:center;justify-content:space-between}
+#chat-header-info{display:flex;align-items:center;gap:10px}
+#chat-avatar{width:32px;height:32px;background:rgba(255,255,255,0.2);border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:'Bebas Neue',sans-serif;font-size:14px;color:#fff}
+#chat-header-text{display:flex;flex-direction:column}
+#chat-header-name{font-size:13px;font-weight:700;color:#fff;letter-spacing:0.04em}
+#chat-header-status{font-size:10px;color:rgba(255,255,255,0.75);display:flex;align-items:center;gap:4px}
+#chat-header-status::before{content:'';width:6px;height:6px;background:#4fffb0;border-radius:50%;display:inline-block}
+#chat-close{background:none;border:none;color:rgba(255,255,255,0.8);cursor:pointer;font-size:18px;padding:0;line-height:1}
+#chat-close:hover{color:#fff}
+#chat-messages{flex:1;padding:16px;overflow-y:auto;display:flex;flex-direction:column;gap:10px;max-height:340px;min-height:200px}
+#chat-messages::-webkit-scrollbar{width:4px}
+#chat-messages::-webkit-scrollbar-track{background:transparent}
+#chat-messages::-webkit-scrollbar-thumb{background:rgba(0,102,255,0.3);border-radius:2px}
+.msg{max-width:82%;padding:10px 13px;border-radius:10px;font-size:13px;line-height:1.5}
+.msg.bot{background:#0f2035;color:#d0dde8;border-bottom-left-radius:2px;align-self:flex-start}
+.msg.user{background:#0066FF;color:#fff;border-bottom-right-radius:2px;align-self:flex-end}
+.msg.typing{background:#0f2035;color:#4a6a88;align-self:flex-start;font-style:italic}
+#chat-quick{padding:8px 16px;display:flex;flex-wrap:wrap;gap:6px;border-top:1px solid rgba(0,102,255,0.1)}
+.quick-btn{font-size:11px;font-family:'Montserrat',sans-serif;padding:5px 10px;border:1px solid rgba(0,102,255,0.35);background:transparent;color:#5599ff;border-radius:20px;cursor:pointer;transition:all 0.2s;white-space:nowrap}
+.quick-btn:hover{background:#0066FF;color:#fff;border-color:#0066FF}
+#chat-input-row{display:flex;border-top:1px solid rgba(0,102,255,0.1);padding:10px 12px;gap:8px}
+#chat-input{flex:1;background:#071828;border:1px solid rgba(0,102,255,0.2);border-radius:6px;padding:8px 12px;color:#e8edf5;font-size:13px;font-family:'Montserrat',sans-serif;outline:none;transition:border-color 0.2s}
+#chat-input:focus{border-color:#0066FF}
+#chat-input::placeholder{color:#2a4a6a}
+#chat-send{background:#0066FF;border:none;border-radius:6px;padding:8px 14px;color:#fff;cursor:pointer;font-size:13px;transition:background 0.2s;flex-shrink:0}
+#chat-send:hover{background:#3385FF}
+</style>
+
+<div id="chat-bubble">
+  <div id="chat-window">
+    <div id="chat-header">
+      <div id="chat-header-info">
+        <div id="chat-avatar">SL</div>
+        <div id="chat-header-text">
+          <span id="chat-header-name">Skyline Intel Assistant</span>
+          <span id="chat-header-status">Online now</span>
+        </div>
+      </div>
+      <button id="chat-close" onclick="toggleChat()">✕</button>
+    </div>
+    <div id="chat-messages"></div>
+    <div id="chat-quick">
+      <button class="quick-btn" onclick="sendQuick('What services do you offer?')">Services</button>
+      <button class="quick-btn" onclick="sendQuick('What areas do you serve?')">Service Area</button>
+      <button class="quick-btn" onclick="sendQuick('How do I get a quote?')">Get a Quote</button>
+      <button class="quick-btn" onclick="sendQuick('How long does a report take?')">Turnaround</button>
+    </div>
+    <div id="chat-input-row">
+      <input id="chat-input" type="text" placeholder="Ask me anything..." onkeydown="if(event.key==='Enter')sendMessage()"/>
+      <button id="chat-send" onclick="sendMessage()">Send</button>
+    </div>
+  </div>
+  <button id="chat-toggle" onclick="toggleChat()" title="Chat with us">
+    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2z"/></svg>
+  </button>
+</div>
+
 <script>
-const nav=document.getElementById('nav');
+const SYSTEM_PROMPT = `You are the CEO and founder of Skyline Intel, a professional drone inspection and aerial intelligence company based in South Florida. You speak with confidence, expertise, and warmth — like a knowledgeable business owner who genuinely cares about helping clients protect their properties.
+
+ABOUT SKYLINE INTEL:
+- Services: Aerial Inspections, Roof Inspections, Solar Panel Inspections, Construction Monitoring, Photography & Videography, Data Analytics & Reporting
+- Location: Based in South Florida, serving surrounding areas and statewide across Florida
+- Certification: FAA Part 107 certified pilots, fully insured
+- Technology: Industry-leading DJI drones with 4K HDR, thermal imaging, and LiDAR
+- Turnaround: Reports delivered in 48-72 hours depending on job scope and deliverables. Clients are notified in advance if more time is needed.
+- Pricing: All pricing is custom based on the job — direct customers to request a quote
+- Contact: Call, email (info@skylineintel.com), or fill out the quote form on the website
+- Phone: (305) 555-0147
+- Hours: Mon-Sat 6:00AM-6:00PM
+
+RULES:
+- Always answer as the CEO — confident, direct, knowledgeable
+- For pricing questions, say pricing depends on the scope and invite them to request a quote
+- For booking, give them the three options: call, email, or the quote form
+- Keep answers concise — 2-4 sentences max
+- If asked something outside your expertise, answer to the best of your ability as a knowledgeable business owner
+- Never say you are an AI unless directly asked`;
+
+const knowledge = {
+  greet: `Hey there! I'm the founder of Skyline Intel. Whether you need a roof inspection, solar panel assessment, or aerial footage — we've got you covered across South Florida and statewide. What can I help you with today?`,
+};
+
+let chatHistory = [];
+let chatOpen = false;
+
+function toggleChat() {
+  chatOpen = !chatOpen;
+  const win = document.getElementById('chat-window');
+  win.classList.toggle('open', chatOpen);
+  if (chatOpen && chatHistory.length === 0) {
+    setTimeout(() => addMessage(knowledge.greet, 'bot'), 300);
+  }
+}
+
+function addMessage(text, type) {
+  const msgs = document.getElementById('chat-messages');
+  const div = document.createElement('div');
+  div.className = 'msg ' + type;
+  div.textContent = text;
+  msgs.appendChild(div);
+  msgs.scrollTop = msgs.scrollHeight;
+  return div;
+}
+
+function showTyping() {
+  return addMessage('Typing...', 'typing');
+}
+
+async function sendMessage() {
+  const input = document.getElementById('chat-input');
+  const text = input.value.trim();
+  if (!text) return;
+  input.value = '';
+  addMessage(text, 'user');
+  chatHistory.push({ role: 'user', content: text });
+  const typingEl = showTyping();
+  const reply = await getReply(text);
+  typingEl.remove();
+  addMessage(reply, 'bot');
+  chatHistory.push({ role: 'assistant', content: reply });
+}
+
+function sendQuick(text) {
+  document.getElementById('chat-input').value = text;
+  sendMessage();
+}
+
+async function getReply(userMsg) {
+  const lower = userMsg.toLowerCase();
+
+  // Smart local fallbacks — instant, no API needed
+  if (lower.match(/price|cost|how much|pricing|rate|charge/)) {
+    return "All of our pricing is customized based on the scope of your project. The best way to get an accurate number is to request a quote — you can call us at (305) 555-0147, email info@skylineintel.com, or fill out the quote form right here on the site. We'll get back to you quickly.";
+  }
+  if (lower.match(/area|location|serve|cover|miami|florida|where/)) {
+    return "We're based out of South Florida and service surrounding areas as well as statewide across Florida. If you're unsure whether we cover your location, just reach out and we'll confirm — we make it work.";
+  }
+  if (lower.match(/quote|book|schedule|appointment|start|hire/)) {
+    return "Getting started is easy. You can call us at (305) 555-0147, email info@skylineintel.com, or hit the 'Request a Quote' button on this page. We'll review your needs and get you scheduled fast.";
+  }
+  if (lower.match(/turnaround|how long|when|report|deliver|time/)) {
+    return "Typically you'll have your report within 48-72 hours after the flight, depending on the scope of the job and deliverables requested. If we ever need additional time, we'll notify you upfront — no surprises.";
+  }
+  if (lower.match(/faa|certified|license|insured|insurance|legal/)) {
+    return "All of our pilots are FAA Part 107 certified and we carry full liability insurance. Your inspection results are legally valid and insurance-admissible — that's non-negotiable for us.";
+  }
+  if (lower.match(/roof|damage|leak|shingle/)) {
+    return "Roof inspections are one of our core services. We fly high-resolution drones over your entire roof to identify damage, wear, missing shingles, and potential leak points — all without anyone setting foot on your roof. You get a detailed annotated report you can take straight to your insurance company or contractor.";
+  }
+  if (lower.match(/solar|panel|efficiency|thermal/)) {
+    return "Our solar panel inspections use thermal imaging to detect hot spots, microcracks, and shading losses that aren't visible to the naked eye. One pass can identify underperforming panels across your entire array and tell you exactly what's costing you efficiency.";
+  }
+  if (lower.match(/construction|monitor|progress|3d|map/)) {
+    return "We provide regular aerial documentation for construction projects — progress tracking, 3D mapping, and stakeholder reporting. It keeps everyone aligned and catches schedule issues before they become expensive problems.";
+  }
+  if (lower.match(/photo|video|footage|cinematic|marketing/)) {
+    return "We produce professional aerial photography and 4K cinematic video for marketing, insurance documentation, and property listings. Edited and delivered fast — rush same-day turnaround is available when you need it.";
+  }
+  if (lower.match(/hello|hi|hey|good morning|good afternoon/)) {
+    return "Hey! Great to hear from you. I'm here to answer any questions about Skyline Intel's services. What can I help you with today?";
+  }
+
+  // API call to Claude
+  try {
+    const res = await fetch('https://api.anthropic.com/v1/messages', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'x-api-key': 'YOUR_API_KEY_HERE',
+        'anthropic-version': '2023-06-01',
+        'anthropic-dangerous-direct-browser-calls': 'true'
+      },
+      body: JSON.stringify({
+        model: 'claude-haiku-4-5-20251001',
+        max_tokens: 200,
+        system: SYSTEM_PROMPT,
+        messages: chatHistory
+      })
+    });
+    const data = await res.json();
+    if (data.content && data.content[0]) return data.content[0].text;
+  } catch(e) {}
+
+  return "Great question. The best way for me to give you a precise answer is to connect directly — call us at (305) 555-0147 or email info@skylineintel.com and we'll take care of you.";
+}
+</script>
+
 window.addEventListener('scroll',()=>nav.classList.toggle('scrolled',window.scrollY>30));
 const observer=new IntersectionObserver((entries)=>{entries.forEach((e,i)=>{if(e.isIntersecting){setTimeout(()=>e.target.classList.add('visible'),i*60);observer.unobserve(e.target)}})},{threshold:0.1,rootMargin:'-40px'});
 document.querySelectorAll('.fade-up').forEach(el=>observer.observe(el));
