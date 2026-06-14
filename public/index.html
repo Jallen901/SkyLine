@@ -80,7 +80,30 @@ footer{background:#040d16;border-top:1px solid rgba(0,102,255,0.08);padding:40px
 .footer-tagline{font-family:'JetBrains Mono',monospace;font-size:10px;color:#0066FF;letter-spacing:0.25em;text-transform:uppercase}
 .fade-up{opacity:0;transform:translateY(24px);transition:opacity 0.7s ease,transform 0.7s ease}
 .fade-up.visible{opacity:1;transform:translateY(0)}
-@media(max-width:768px){nav{padding:16px 24px}.nav-links a{display:none}section{padding:80px 24px}.hero{padding:0 24px}.hero h1{font-size:72px}.services-grid{grid-template-columns:1fr}.why-grid{grid-template-columns:1fr}footer{flex-direction:column;gap:12px;text-align:center;padding:32px 24px}}
+/* Hamburger button */
+.hamburger{display:none;flex-direction:column;gap:5px;background:none;border:none;cursor:pointer;padding:4px;z-index:200}
+.hamburger span{display:block;width:24px;height:2px;background:#fff;transition:transform 0.3s,opacity 0.3s}
+.hamburger.open span:nth-child(1){transform:translateY(7px) rotate(45deg)}
+.hamburger.open span:nth-child(2){opacity:0}
+.hamburger.open span:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
+/* Mobile drawer */
+.mobile-menu{display:none;position:fixed;inset:0;z-index:150;background:rgba(7,24,40,0.98);backdrop-filter:blur(16px);flex-direction:column;align-items:center;justify-content:center;gap:36px;opacity:0;pointer-events:none;transition:opacity 0.3s}
+.mobile-menu.open{opacity:1;pointer-events:all}
+.mobile-menu a{font-family:'Bebas Neue',sans-serif;font-size:40px;color:#fff;text-decoration:none;letter-spacing:0.08em;transition:color 0.2s}
+.mobile-menu a:hover{color:#0066FF}
+.mobile-menu .btn-quote-mobile{font-family:'Montserrat',sans-serif;font-size:14px;font-weight:600;letter-spacing:0.08em;background:#0066FF;color:#fff;padding:14px 36px;border:none;cursor:pointer;text-decoration:none;margin-top:8px}
+@media(max-width:768px){
+  nav{padding:16px 24px}
+  .nav-links{display:none}
+  .hamburger{display:flex}
+  .mobile-menu{display:flex}
+  section{padding:80px 24px}
+  .hero{padding:0 24px}
+  .hero h1{font-size:72px}
+  .services-grid{grid-template-columns:1fr}
+  .why-grid{grid-template-columns:1fr}
+  footer{flex-direction:column;gap:12px;text-align:center;padding:32px 24px}
+}
 </style>
 </head>
 <body>
@@ -98,7 +121,18 @@ footer{background:#040d16;border-top:1px solid rgba(0,102,255,0.08);padding:40px
     <a href="#contact">Contact</a>
     <a href="#contact" class="btn-quote">Get a Quote</a>
   </div>
+  <button class="hamburger" id="hamburger" aria-label="Open menu">
+    <span></span><span></span><span></span>
+  </button>
 </nav>
+
+<!-- Mobile menu overlay -->
+<div class="mobile-menu" id="mobile-menu">
+  <a href="#services" class="mobile-nav-link">Services</a>
+  <a href="#why-us" class="mobile-nav-link">Why Us</a>
+  <a href="#contact" class="mobile-nav-link">Contact</a>
+  <a href="#contact" class="btn-quote-mobile">Get a Quote</a>
+</div>
 
 <section class="hero" id="home">
   <video class="hero-video" autoplay muted loop playsinline>
@@ -410,6 +444,20 @@ async function getReply(userMsg) {
 </script>
 
 window.addEventListener('scroll',()=>nav.classList.toggle('scrolled',window.scrollY>30));
+
+// Hamburger menu
+const hamburger = document.getElementById('hamburger');
+const mobileMenu = document.getElementById('mobile-menu');
+function toggleMobileMenu(force) {
+  const open = force !== undefined ? force : !hamburger.classList.contains('open');
+  hamburger.classList.toggle('open', open);
+  mobileMenu.classList.toggle('open', open);
+  document.body.style.overflow = open ? 'hidden' : '';
+}
+hamburger.addEventListener('click', () => toggleMobileMenu());
+document.querySelectorAll('.mobile-nav-link, .btn-quote-mobile').forEach(link => {
+  link.addEventListener('click', () => toggleMobileMenu(false));
+});
 const observer=new IntersectionObserver((entries)=>{entries.forEach((e,i)=>{if(e.isIntersecting){setTimeout(()=>e.target.classList.add('visible'),i*60);observer.unobserve(e.target)}})},{threshold:0.1,rootMargin:'-40px'});
 document.querySelectorAll('.fade-up').forEach(el=>observer.observe(el));
 </script>
