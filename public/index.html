@@ -80,7 +80,25 @@ footer{background:#040d16;border-top:1px solid rgba(0,102,255,0.08);padding:40px
 .footer-tagline{font-family:'JetBrains Mono',monospace;font-size:10px;color:#0066FF;letter-spacing:0.25em;text-transform:uppercase}
 .fade-up{opacity:0;transform:translateY(24px);transition:opacity 0.7s ease,transform 0.7s ease}
 .fade-up.visible{opacity:1;transform:translateY(0)}
-/* Hamburger button */
+/* Quote Form */
+.quote-form{width:100%;max-width:640px;margin:0 auto;text-align:left}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.form-group{display:flex;flex-direction:column;gap:8px;margin-bottom:16px}
+.form-group label{font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:0.2em;color:#4a6a88;text-transform:uppercase}
+.form-group input,.form-group select,.form-group textarea{background:#0a1a2f;border:1px solid rgba(0,102,255,0.2);color:#e8edf5;font-family:'Montserrat',sans-serif;font-size:14px;padding:12px 16px;outline:none;transition:border-color 0.2s;width:100%}
+.form-group input::placeholder,.form-group textarea::placeholder{color:#2a4a6a}
+.form-group input:focus,.form-group select:focus,.form-group textarea:focus{border-color:#0066FF}
+.form-group select{appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%230066FF' stroke-width='1.5' fill='none'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 16px center;cursor:pointer}
+.form-group select option{background:#0a1a2f;color:#e8edf5}
+.form-group textarea{resize:vertical;min-height:120px}
+.form-submit{width:100%;padding:16px;background:#0066FF;color:#fff;font-family:'Montserrat',sans-serif;font-weight:700;font-size:13px;letter-spacing:0.1em;text-transform:uppercase;border:none;cursor:pointer;transition:background 0.2s;margin-top:8px}
+.form-submit:hover{background:#3385FF}
+.form-submit:disabled{background:#1a3a5a;cursor:not-allowed}
+.form-success{display:none;text-align:center;padding:40px;background:rgba(0,102,255,0.06);border:1px solid rgba(0,102,255,0.2)}
+.form-success .success-icon{font-size:36px;margin-bottom:16px}
+.form-success h3{font-family:'Bebas Neue',sans-serif;font-size:28px;color:#fff;letter-spacing:0.06em;margin-bottom:8px}
+.form-success p{font-size:13px;color:#6a8aaa}
+@media(max-width:768px){.form-row{grid-template-columns:1fr}}
 .hamburger{display:none;flex-direction:column;gap:5px;background:none;border:none;cursor:pointer;padding:4px;z-index:200}
 .hamburger span{display:block;width:24px;height:2px;background:#fff;transition:transform 0.3s,opacity 0.3s}
 .hamburger.open span:nth-child(1){transform:translateY(7px) rotate(45deg)}
@@ -191,9 +209,76 @@ footer{background:#040d16;border-top:1px solid rgba(0,102,255,0.08);padding:40px
   <div class="contact-inner">
     <div class="contact-rule fade-up"><div class="eyebrow-line"></div><span class="eyebrow-text">Contact</span><div class="eyebrow-line"></div></div>
     <h2 class="fade-up">READY FOR CLARITY<br>FROM ABOVE?</h2>
-    <p class="fade-up">Get professional insights, detailed reports, and complete property solutions from a team you can trust.</p>
-    <a href="mailto:info@skylineintel.com" class="btn-primary fade-up">Request a Quote</a>
-    <div class="contact-details fade-up">
+    <p class="fade-up">Tell us about your project and we'll get back to you with a custom quote within 24 hours.</p>
+
+    <!-- Quote Form -->
+    <form class="quote-form fade-up" id="quote-form" onsubmit="submitQuote(event)">
+      <div class="form-row">
+        <div class="form-group">
+          <label>First Name *</label>
+          <input type="text" name="firstName" placeholder="John" required/>
+        </div>
+        <div class="form-group">
+          <label>Last Name *</label>
+          <input type="text" name="lastName" placeholder="Smith" required/>
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label>Email *</label>
+          <input type="email" name="email" placeholder="john@example.com" required/>
+        </div>
+        <div class="form-group">
+          <label>Phone</label>
+          <input type="tel" name="phone" placeholder="(305) 000-0000"/>
+        </div>
+      </div>
+      <div class="form-group">
+        <label>Property / Project Address</label>
+        <input type="text" name="address" placeholder="123 Main St, Miami, FL"/>
+      </div>
+      <div class="form-group">
+        <label>Service Needed *</label>
+        <select name="service" required>
+          <option value="" disabled selected>Select a service...</option>
+          <option>Aerial Inspection</option>
+          <option>Roof Inspection</option>
+          <option>Solar Panel Inspection</option>
+          <option>Construction Monitoring</option>
+          <option>Photography &amp; Videography</option>
+          <option>3D Mapping / Surveying</option>
+          <option>Agricultural Imaging</option>
+          <option>Film / Commercial Production</option>
+          <option>Insurance Documentation</option>
+          <option>Other / Custom Project</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label>Timeline</label>
+        <select name="timeline">
+          <option value="" disabled selected>When do you need this?</option>
+          <option>ASAP / Rush</option>
+          <option>Within 1 week</option>
+          <option>Within 2 weeks</option>
+          <option>Within a month</option>
+          <option>Just planning ahead</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label>Tell Us About Your Project</label>
+        <textarea name="message" placeholder="Any details about the property, scope, or special requirements..."></textarea>
+      </div>
+      <button type="submit" class="form-submit" id="form-submit-btn">Send Quote Request</button>
+    </form>
+
+    <!-- Success state -->
+    <div class="form-success" id="form-success">
+      <div class="success-icon">✓</div>
+      <h3>Request Received</h3>
+      <p>We'll review your project and get back to you within 24 hours.<br/>Questions? Call us at (305) 555-0147.</p>
+    </div>
+
+    <div class="contact-details fade-up" style="margin-top:40px">
       <a href="tel:3055550147" class="contact-link">(305) 555-0147</a>
       <a href="mailto:info@skylineintel.com" class="contact-link">info@skylineintel.com</a>
       <span class="contact-link">Miami, FL · Mon–Sat 6:00AM–6:00PM</span>
@@ -458,6 +543,24 @@ hamburger.addEventListener('click', () => toggleMobileMenu());
 document.querySelectorAll('.mobile-nav-link, .btn-quote-mobile').forEach(link => {
   link.addEventListener('click', () => toggleMobileMenu(false));
 });
+// Quote form submit
+async function submitQuote(e) {
+  e.preventDefault();
+  const btn = document.getElementById('form-submit-btn');
+  btn.disabled = true;
+  btn.textContent = 'Sending...';
+  const form = document.getElementById('quote-form');
+  const data = Object.fromEntries(new FormData(form));
+  // Build mailto fallback (replace with backend endpoint when ready)
+  const body = Object.entries(data).map(([k,v])=>`${k}: ${v}`).join('\n');
+  const subject = `Quote Request — ${data.service || 'General'} — ${data.firstName} ${data.lastName}`;
+  window.open(`mailto:info@skylineintel.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`);
+  setTimeout(() => {
+    form.style.display = 'none';
+    document.getElementById('form-success').style.display = 'block';
+  }, 500);
+}
+
 const observer=new IntersectionObserver((entries)=>{entries.forEach((e,i)=>{if(e.isIntersecting){setTimeout(()=>e.target.classList.add('visible'),i*60);observer.unobserve(e.target)}})},{threshold:0.1,rootMargin:'-40px'});
 document.querySelectorAll('.fade-up').forEach(el=>observer.observe(el));
 </script>
