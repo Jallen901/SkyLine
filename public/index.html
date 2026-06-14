@@ -160,7 +160,6 @@ footer{background:#040d16;border-top:1px solid rgba(0,102,255,0.08);padding:40px
     <p class="fade-up">Get professional insights, detailed reports, and complete property solutions from a team you can trust.</p>
     <a href="mailto:info@skylineintel.com" class="btn-primary fade-up">Request a Quote</a>
     <div class="contact-details fade-up">
-      <a href="tel:3055550147" class="contact-link">(305) 555-0147</a>
       <a href="mailto:info@skylineintel.com" class="contact-link">info@skylineintel.com</a>
       <span class="contact-link">Miami, FL · Mon–Sat 6:00AM–6:00PM</span>
     </div>
@@ -285,7 +284,7 @@ Pricing: Never guess. Say something like "Honestly, pricing really depends on sc
 
 Business info:
 - Business name: SkyLine Intel
-- Phone: [Phone Number]
+- Phone: (coming soon — not yet public)
 - Quote form: [QUOTE FORM LINK]
 - Service area: South Florida (open to exploring opportunities elsewhere — never shut the door)
 - Certifications: All pilots are FAA Part 107 certified
@@ -354,13 +353,13 @@ async function getReply(userMsg) {
 
   // Smart local fallbacks — instant, no API needed
   if (lower.match(/price|cost|how much|pricing|rate|charge/)) {
-    return "All of our pricing is customized based on the scope of your project. The best way to get an accurate number is to request a quote — you can call us at (305) 555-0147, email info@skylineintel.com, or fill out the quote form right here on the site. We'll get back to you quickly.";
+    return "All of our pricing is customized based on the scope of your project. The best way to get an accurate number is to request a quote — you can email info@skylineintel.com or fill out the quote form right here on the site. We'll get back to you quickly.";
   }
   if (lower.match(/area|location|serve|cover|miami|florida|where/)) {
     return "We're based out of South Florida and service surrounding areas as well as statewide across Florida. If you're unsure whether we cover your location, just reach out and we'll confirm — we make it work.";
   }
   if (lower.match(/quote|book|schedule|appointment|start|hire/)) {
-    return "Getting started is easy. You can call us at (305) 555-0147, email info@skylineintel.com, or hit the 'Request a Quote' button on this page. We'll review your needs and get you scheduled fast.";
+    return "Getting started is easy. You can email info@skylineintel.com or hit the 'Request a Quote' button on this page. We'll review your needs and get you scheduled fast.";
   }
   if (lower.match(/turnaround|how long|when|report|deliver|time/)) {
     return "Typically you'll have your report within 48-72 hours after the flight, depending on the scope of the job and deliverables requested. If we ever need additional time, we'll notify you upfront — no surprises.";
@@ -405,7 +404,7 @@ async function getReply(userMsg) {
     if (data.content && data.content[0]) return data.content[0].text;
   } catch(e) {}
 
-  return "Great question. The best way for me to give you a precise answer is to connect directly — call us at (305) 555-0147 or email info@skylineintel.com and we'll take care of you.";
+  return "Great question. The best way for me to give you a precise answer is to connect directly — email info@skylineintel.com or fill out the quote form and we'll take care of you.";
 }
 </script>
 
