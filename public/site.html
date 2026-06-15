@@ -1680,8 +1680,18 @@
   var opened   = false;
 
   /* ── Aerial's response bank ───────────────────────────────────── */
+  function getGreeting() {
+    var hour = new Date(new Date().toLocaleString('en-US', {timeZone: 'America/New_York'})).getHours();
+    if (hour >= 5 && hour < 12)  return 'Good morning';
+    if (hour >= 12 && hour < 17) return 'Good afternoon';
+    if (hour >= 17 && hour < 21) return 'Good evening';
+    return 'Good evening';
+  }
+
+  var CLOSING = "\n\nThank you for your interest in Skyline Intel — we're looking forward to doing business with you.";
+
   var R = {
-    welcome: "Hey! I'm Aerial — I'm on the Skyline Intel team and I handle all things client-side. What's going on? How can I help?",
+    welcome: getGreeting() + "! I'm Aerial — I'm on the Skyline Intel team and I handle all things client-side. What's going on? How can I help?",
 
     services: "Good question — we cover a lot of ground. Here's what we do:\n\n• Drone Photography & Videography — 4K stills, cinematic video, real estate walkthroughs\n• Aerial Inspections — roofing, solar panels, cell towers, infrastructure, insurance claims\n• 3D Mapping & Surveying — site maps, boundary docs, elevation data, GIS deliverables\n• Construction Progress Monitoring — weekly documentation for GCs, lenders, developers\n• Sporting Events — stadium overviews, crowd shots, live game coverage from the air\n• Film & Commercial Production — aerial footage for ads, marketing, and film projects\n• Agricultural Imaging — crop health, field mapping, irrigation analysis\n• Search & Rescue / Disaster Response — rapid aerial coverage for emergency teams\n• Custom Projects — if it needs a drone, we want to hear about it\n\nAnything on that list catch your eye? Happy to dig in.",
 
@@ -1689,7 +1699,7 @@
 
     area: "Home base is South Florida — Miami-Dade, Broward, and Palm Beach are our main territory. We fly statewide across Florida too.\n\nAnd if you're outside Florida? Just reach out. We'll have an honest conversation about whether we can make it work — we don't automatically say no.",
 
-    quote: "Totally depends on the scope — property size, what you need delivered, number of flights, timeline... it's never one-size-fits-all, and we'd rather get it right than give you a number that doesn't fit.\n\nBest move is to just reach out:\n\n📞 (305) 360-4217\n✉️ info@skylineintelgroup.com\n\nWe get back to people same day. No pressure, just a quick conversation.",
+    quote: "Totally depends on the scope — property size, what you need delivered, number of flights, timeline... it's never one-size-fits-all, and we'd rather get it right than give you a number that doesn't fit.\n\nBest move is to just reach out:\n\n📞 (305) 360-4217\n✉️ info@skylineintelgroup.com\n\nWe get back to people same day. No pressure, just a quick conversation." + CLOSING,
 
     turnaround: "Standard is 48 to 72 hours from when we fly. That's what most clients get.\n\nIf something's going to take longer — weather window, complex deliverables — we'll let you know ahead of time. Not after. And if you're in a rush, ask me about expedited options when you reach out.",
 
@@ -1715,9 +1725,9 @@
 
     faa: "All our pilots are FAA Part 107 certified — that's the commercial drone license you need for any paid or business-related flights. We're also fully insured.\n\nIf you need a copy of the certificate or a COI for your project, just ask — we can get that over to you.",
 
-    contact: "Here's the best way to reach us:\n\n📞 Call or text: (305) 360-4217\n✉️ info@skylineintelgroup.com\n\nWe're around Monday through Saturday, 6 AM to 6 PM. Quotes and replies usually go out same day.",
+    contact: "Here's the best way to reach us:\n\n📞 Call or text: (305) 360-4217\n✉️ info@skylineintelgroup.com\n\nWe're around Monday through Saturday, 6 AM to 6 PM. Quotes and replies usually go out same day." + CLOSING,
 
-    fallback: "Good question — let me help you figure it out. We cover inspections, photography, mapping, construction docs, film, agriculture, emergency response, and more. If it involves a drone, we've probably done something close.\n\nTell me a bit about what you're working on and I'll let you know exactly how we can help."
+    fallback: "Good question — let me help you figure it out. We cover inspections, photography, mapping, construction docs, film, agriculture, emergency response, and more. If it involves a drone, we've probably done something close.\n\nTell me a bit about what you're working on and I'll let you know exactly how we can help." + CLOSING
   };
 
   function classify(t) {
