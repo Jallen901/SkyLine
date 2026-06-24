@@ -1,0 +1,15 @@
+<svg width="220" height="44" viewBox="0 0 220 44" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- SL monogram -->
+  <text x="1" y="38" font-family="'Bebas Neue', Impact, sans-serif" font-size="42" fill="white">S</text>
+  <text x="24" y="38" font-family="'Bebas Neue', Impact, sans-serif" font-size="42" fill="#0066FF">L</text>
+
+  <!-- SKYLINE wordmark -->
+  <text x="62" y="28" font-family="'Bebas Neue', Impact, sans-serif" font-size="18" letter-spacing="2.2" fill="white">SKYLIN</text>
+  <!-- E bracket (three horizontal bars) -->
+  <rect x="152" y="13" width="9" height="2.5" fill="white"/>
+  <rect x="152" y="18" width="7" height="2.5" fill="white"/>
+  <rect x="152" y="23" width="9" height="2.5" fill="white"/>
+
+  <!-- · INTEL · subtext -->
+  <text x="63" y="40" font-family="'Montserrat', Arial, sans-serif" font-size="7.5" font-weight="600" letter-spacing="3.5" fill="#0066FF">· INTEL ·</text>
+</svg>
