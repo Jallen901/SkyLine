@@ -630,6 +630,39 @@
       stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round;
     }
 
+    /* ── STADIUM AERIAL ──────────────────────────────────────────── */
+    .stadium-aerial { width: 100%; }
+    .stadium-img-wrap {
+      position: relative; width: 100%; height: 560px; overflow: hidden;
+    }
+    .stadium-img-wrap img {
+      width: 100%; height: 100%; object-fit: cover; object-position: center 30%;
+      display: block;
+    }
+    .stadium-overlay {
+      position: absolute; inset: 0;
+      background: linear-gradient(to right, rgba(7,24,40,0.82) 40%, rgba(7,24,40,0.3) 100%);
+    }
+    .stadium-caption {
+      position: absolute; top: 50%; left: 0; transform: translateY(-50%);
+      padding: 0 80px; max-width: 600px;
+    }
+    .stadium-head {
+      font-family: var(--fd); font-size: clamp(36px, 5vw, 58px);
+      color: var(--fg); line-height: 1.05; margin: 12px 0 16px;
+    }
+    .stadium-sub {
+      font-size: 15px; color: rgba(255,255,255,0.75); line-height: 1.6;
+      margin-bottom: 28px; max-width: 440px;
+    }
+    @media (max-width: 768px) {
+      .stadium-img-wrap { height: 420px; }
+      .stadium-caption { padding: 0 28px; max-width: 100%; }
+      .stadium-overlay {
+        background: linear-gradient(to bottom, rgba(7,24,40,0.75) 0%, rgba(7,24,40,0.5) 100%);
+      }
+    }
+
     /* ── PRICING ─────────────────────────────────────────────────── */
     .pricing {
       background: var(--navy); padding: 100px 0;
@@ -1173,6 +1206,20 @@
       </div>
     </div>
 
+  </div>
+</section>
+
+<!-- ── STADIUM AERIAL ──────────────────────────────────────────────── -->
+<section class="stadium-aerial">
+  <div class="stadium-img-wrap">
+    <img src="https://images.unsplash.com/photo-1508098682722-e99c43a406b2?w=1800&q=80&auto=format&fit=crop" alt="Aerial view of stadium during live event" loading="lazy"/>
+    <div class="stadium-overlay"></div>
+    <div class="stadium-caption">
+      <div class="section-tag">Sporting Events</div>
+      <h2 class="stadium-head">THE VIEW FROM<br>ABOVE THE GAME</h2>
+      <p class="stadium-sub">Stadium overviews, crowd energy, and field-level action — captured from perspectives no ground camera can reach.</p>
+      <a href="#quote" class="btn-blue">Get a Quote</a>
+    </div>
   </div>
 </section>
 
