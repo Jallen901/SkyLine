@@ -1826,14 +1826,25 @@ function submitQuote(e) {
   var btn = document.getElementById('formSubmitBtn');
   btn.disabled = true; btn.textContent = 'Sending...';
   var form = document.getElementById('quoteForm');
-  var data = Object.fromEntries(new FormData(form));
-  var body = Object.entries(data).map(function(kv){ return kv[0]+': '+kv[1]; }).join('\n');
-  var subject = 'Quote Request — '+(data.service||'General')+' — '+data.firstName+' '+data.lastName;
-  window.open('mailto:info@skylineintelgroup.com?subject='+encodeURIComponent(subject)+'&body='+encodeURIComponent(body));
-  setTimeout(function(){
-    form.style.display='none';
-    document.getElementById('formSuccess').style.display='block';
-  }, 400);
+  var formData = new FormData(form);
+  fetch('https://formspree.io/f/xwvdvroq', {
+    method: 'POST',
+    body: formData,
+    headers: { 'Accept': 'application/json' }
+  }).then(function(res) {
+    if (res.ok) {
+      form.style.display = 'none';
+      document.getElementById('formSuccess').style.display = 'block';
+    } else {
+      btn.disabled = false;
+      btn.textContent = 'Send Quote Request';
+      alert('Something went wrong. Please try again or call (305) 360-4217.');
+    }
+  }).catch(function() {
+    btn.disabled = false;
+    btn.textContent = 'Send Quote Request';
+    alert('Network error. Please try again or call (305) 360-4217.');
+  });
 }
 </script>
 </body></html>
