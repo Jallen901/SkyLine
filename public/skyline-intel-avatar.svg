@@ -1,0 +1,18 @@
+<svg width="320" height="320" viewBox="0 0 320 320" xmlns="http://www.w3.org/2000/svg">
+  <!-- Background -->
+  <rect width="320" height="320" fill="#071828"/>
+
+  <!-- SL Monogram centered -->
+  <text x="88" y="185" font-family="'Bebas Neue', Impact, sans-serif" font-size="110" fill="white">S</text>
+  <text x="170" y="185" font-family="'Bebas Neue', Impact, sans-serif" font-size="110" fill="#0066FF">L</text>
+
+  <!-- SKYLINE wordmark -->
+  <text x="60" y="224" font-family="'Bebas Neue', Impact, sans-serif" font-size="32" letter-spacing="6" fill="white">SKYLIN</text>
+  <!-- E bracket bars -->
+  <rect x="246" y="196" width="16" height="4" fill="white"/>
+  <rect x="246" y="204" width="13" height="4" fill="white"/>
+  <rect x="246" y="212" width="16" height="4" fill="white"/>
+
+  <!-- · INTEL · -->
+  <text x="90" y="252" font-family="'Montserrat', Arial, sans-serif" font-size="14" font-weight="700" letter-spacing="8" fill="#0066FF">· INTEL ·</text>
+</svg>
