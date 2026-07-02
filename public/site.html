@@ -1734,67 +1734,83 @@
     if (hour >= 17 || hour < 2)  return 'Good evening';
   }
 
-  var CLOSING = "\n\nThank you for your interest in Skyline Intel — we're looking forward to doing business with you.";
+  var CLOSING = "\n\nThanks so much for reaching out — we really appreciate your interest in Skyline Intel and we're looking forward to working with you!";
 
   var R = {
-    welcome: getGreeting() + "! I'm Aerial — I'm on the Skyline Intel team and I handle all things client-side. What's going on? How can I help?",
+    welcome: getGreeting() + "! Thanks for stopping by Skyline Intel. I'm Aerial — I work directly with clients and I'm here to help with whatever you need. What can I do for you today?",
 
-    services: "Good question — we cover a lot of ground. Here's what we do:\n\n• Drone Photography & Videography — 4K stills, cinematic video, real estate walkthroughs\n• Aerial Inspections — roofing, solar panels, cell towers, infrastructure, insurance claims\n• 3D Mapping & Surveying — site maps, boundary docs, elevation data, GIS deliverables\n• Construction Progress Monitoring — weekly documentation for GCs, lenders, developers\n• Sporting Events — stadium overviews, crowd shots, live game coverage from the air\n• Film & Commercial Production — aerial footage for ads, marketing, and film projects\n• Agricultural Imaging — crop health, field mapping, irrigation analysis\n• Search & Rescue / Disaster Response — rapid aerial coverage for emergency teams\n• Custom Projects — if it needs a drone, we want to hear about it\n\nAnything on that list catch your eye? Happy to dig in.",
+    hello: [
+      "Hey! Good to hear from you. What can I help you with?",
+      "Hi there! Welcome to Skyline Intel. What brings you in today?",
+      "Hey, how's it going! I'm Aerial — what can I do for you?"
+    ],
 
-    sports: "Sporting events are actually one of the coolest things we do. We fly stadium overviews, capture the crowd energy from above, cover field and court action from a perspective you just can't get any other way.\n\nGreat for tournaments, game-day content, league highlight reels, or any live sports event that needs that cinematic aerial look. Whether it's a youth league or a big stadium event, reach out and we'll scope it out:\n\n📞 (305) 360-4217\n✉️ info@skylineintelgroup.com",
+    thanks: [
+      "Of course! That's what I'm here for. Anything else you want to know?",
+      "Absolutely, happy to help! Don't hesitate if you have more questions.",
+      "No problem at all! Is there anything else I can help you with?"
+    ],
 
-    area: "Home base is South Florida — Miami-Dade, Broward, and Palm Beach are our main territory. We fly statewide across Florida too.\n\nAnd if you're outside Florida? Just reach out. We'll have an honest conversation about whether we can make it work — we don't automatically say no.",
+    services: "Oh sure, we do quite a bit! Here's the rundown:\n\n• **Drone Photography & Video** — 4K stills, cinematic walkthroughs, real estate\n• **Aerial Inspections** — roofs, solar panels, cell towers, insurance documentation\n• **3D Mapping & Surveying** — site maps, elevation data, GIS deliverables\n• **Construction Monitoring** — weekly progress docs for GCs, lenders, developers\n• **Sporting Events** — stadium overviews, game-day coverage, tournament reels\n• **Film & Commercial** — aerial footage for ads, music videos, productions\n• **Agricultural Imaging** — crop health, field mapping, irrigation analysis\n• **Search & Rescue** — thermal imaging, rapid deployment for emergency teams\n• **Custom Projects** — honestly, if it needs a drone just ask\n\nAnything on that list you want to dig into?",
 
-    quote: "Totally depends on the scope — property size, what you need delivered, number of flights, timeline... it's never one-size-fits-all, and we'd rather get it right than give you a number that doesn't fit.\n\nBest move is to just reach out:\n\n📞 (305) 360-4217\n✉️ info@skylineintelgroup.com\n\nWe get back to people same day. No pressure, just a quick conversation." + CLOSING,
+    sports: "Oh that's honestly one of my favorite things we do. There's nothing like aerial footage of a live event — the crowd energy, the field from above, the scale of it. You just can't capture that from the ground.\n\nWe cover all kinds of events — youth leagues, tournaments, college games, big stadium events. Game-day content, highlight reels, live coverage — whatever you need.\n\nWhat kind of event are you working with? I'd love to hear more about it.",
 
-    turnaround: "Standard is 48 to 72 hours from when we fly. That's what most clients get.\n\nIf something's going to take longer — weather window, complex deliverables — we'll let you know ahead of time. Not after. And if you're in a rush, ask me about expedited options when you reach out.",
+    area: "We're based in South Florida — so Miami-Dade, Broward, and Palm Beach are our sweet spot. We fly all over the state of Florida too.\n\nIf you're somewhere outside Florida, honestly just reach out anyway. Depending on the project and the scope, we may be able to make it work. We'd rather have that conversation than just say no without knowing what's involved.\n\nWhere are you located?",
 
-    roof: "Roof inspections are one of our most popular services, especially after storm season. We document everything from above — shingles, flashing, gutters, drains — with GPS-pinned annotations and deliver a clean PDF that's insurance-ready.\n\nNo ladders, no liability on your end. Property managers and insurance adjusters especially love it for that reason.",
+    quote: "Totally get it — pricing is always the first question! Honestly it really does depend on the scope of the project. Size of the property, what deliverables you need, how many flights, the timeline... every job is a little different.\n\nBest thing to do is just shoot us a message or give us a call and we'll put something together that actually fits what you need:\n\n📞 (305) 360-4217\n✉️ info@skylineintelgroup.com\n\nWe get back to people same day and there's zero pressure — just a quick conversation to figure out what makes sense." + CLOSING,
 
-    solar: "We do thermal solar inspections — fly over the array with a thermal camera and catch which panels are underperforming or failing, even if they look fine from the ground.\n\nYou get a panel-by-panel breakdown and an efficiency impact estimate. Way faster than manual, and nobody has to go up on the roof.",
+    turnaround: "Most clients get their stuff back within 48 to 72 hours after the flight. That's our standard.\n\nIf something's going to take longer — like if weather pushes the flight, or the deliverables are more complex — we'll always give you a heads up ahead of time, not after the fact.\n\nNeed something faster? Ask about rush options when you reach out and we'll see what we can do.",
 
-    construction: "Construction monitoring is a big one for us. Weekly flights, or whatever cadence your project needs — progress documentation from above, 3D mapping, as-built reference, lender-ready reports.\n\nA lot of GCs use it to catch discrepancies early before they get expensive. And showing investors real aerial footage instead of a site report? Way more compelling.",
+    roof: "Roof inspections are actually one of our busiest services, especially after hurricane season down here. We fly over the whole property, document everything — shingles, flashing, gutters, drainage — with GPS pinned photos and annotations, and we hand you a clean PDF report that's ready for insurance.\n\nNo ladders, no one climbing on your roof, no liability on your end. Property managers and insurance adjusters really love that part.\n\nIs this for a residential or commercial property?",
 
-    photo: "Aerial photography and video is honestly one of the best things we do. 4K stills, cinematic walkthroughs, neighborhood context shots — delivered within 48 hours.\n\nWhether it's a listing, a development project, or a marketing piece, we make the property look the way it should.",
+    solar: "Yeah, thermal solar inspections are really valuable — especially if you've got a large array and you're not sure why your output numbers are off.\n\nWe fly over with a thermal camera and it shows exactly which panels are underperforming or failing, even when they look totally normal from the ground. You get a panel-by-panel breakdown and an efficiency impact estimate.\n\nWay faster than doing it manually, and nobody has to get on the roof. How big is the array you're working with?",
 
-    mapping: "We do 3D mapping and aerial surveying — site maps, boundary overlays, elevation data, full GIS deliverables. Useful for due diligence, development planning, property documentation, legal purposes.\n\nIf you need actual measurement and mapping data beyond photos, that's exactly what this service is for.",
+    construction: "Construction monitoring is a big one for us. We work with a lot of GCs, developers, and project owners — weekly flights, progress docs from above, 3D mapping, as-built reference, lender-ready reports.\n\nA lot of clients tell us it's helped them catch issues early before they turn into expensive surprises. And showing investors real aerial footage of their project instead of a written report? Way more impactful.\n\nWhat stage is the project at right now?",
 
-    tower: "Yep — we inspect cell towers, transmission lines, antennas, and other hard-to-access infrastructure. Drones are faster and way safer than sending people up.\n\nWe document structural conditions, flag anything that looks off, and deliver annotated reports. Tell me more about what you've got and I can tell you if it's a fit.",
+    photo: "Aerial photography and video is honestly one of our best services — and it's one of the most visible things we deliver. 4K stills, cinematic video walkthroughs, neighborhood context shots, the whole thing.\n\nDelivery is usually within 48 hours of the flight. Whether it's a listing, a development project, or a marketing campaign, we make it look the way it should look.\n\nWhat kind of property or project are we talking about?",
 
-    agricultural: "We do agricultural imaging — crop health, field mapping, irrigation checks, plant density analysis. If you're managing acreage and want eyes in the sky on a schedule, we can build a workflow around that.\n\nWhat kind of operation are you working with?",
+    mapping: "Yep — 3D mapping and aerial surveying is something we do for a lot of different clients. Site maps, boundary overlays, elevation data, full GIS deliverables. Really useful for due diligence, development planning, property docs, legal purposes.\n\nIf you need actual measurement and data — not just photos — that's exactly what this service is built for. What's the project?",
 
-    film: "Film and commercial work? Absolutely — we've done aerial footage for ads, music videos, documentaries, and real estate marketing. Anything that needs a cinematic aerial perspective.\n\nJust share what you're working on and we'll talk through the logistics.",
+    tower: "Absolutely, we handle cell towers, transmission lines, antennas, and all kinds of hard-to-reach infrastructure. Honestly drones are just safer and faster than sending someone up.\n\nWe document the structural condition, flag anything that looks off, and deliver annotated reports. Tell me a bit more about what you've got and I'll let you know if it's a good fit.",
 
-    searchrescue: "We support search and rescue and disaster response operations — rapid aerial deployment, thermal imaging, real-time visual support for emergency teams.\n\nIf there's something developing, reach out directly:\n📞 (305) 360-4217",
+    agricultural: "We do agricultural imaging — crop health mapping, field surveys, irrigation analysis, plant density. If you're managing a lot of acreage and need regular eyes in the sky, we can set up a scheduled workflow around that.\n\nWhat kind of operation are you running?",
 
-    custom: "If it needs a drone, we want to hear about it. Seriously. We take on custom projects all the time — if it's something we haven't done before, we'll tell you straight. But we're not in the habit of turning people away without at least having the conversation.\n\nWhat are you thinking?",
+    film: "Oh for sure — film and commercial work is right in our wheelhouse. We've done aerial footage for ads, music videos, documentaries, real estate marketing campaigns. If you need a cinematic aerial perspective, that's exactly what we do.\n\nTell me a little about the project — what are you working on?",
 
-    faa: "All our pilots are FAA Part 107 certified — that's the commercial drone license you need for any paid or business-related flights. We're also fully insured.\n\nIf you need a copy of the certificate or a COI for your project, just ask — we can get that over to you.",
+    searchrescue: "We do support search and rescue and disaster response operations. Rapid aerial deployment, thermal imaging, real-time visual support for ground teams.\n\nIf something is time-sensitive, please reach out directly — don't wait on chat:\n📞 (305) 360-4217",
 
-    contact: "Here's the best way to reach us:\n\n📞 Call or text: (305) 360-4217\n✉️ info@skylineintelgroup.com\n\nWe're around Monday through Saturday, 6 AM to 6 PM. Quotes and replies usually go out same day." + CLOSING,
+    custom: "Honestly? If it needs a drone, just tell me about it. We're not the type to turn something away without at least hearing what you're thinking. We take on custom projects all the time — and if for some reason it's not a fit, we'll be straight with you about that.\n\nSo what's on your mind?",
 
-    fallback: "Good question — let me help you figure it out. We cover inspections, photography, mapping, construction docs, film, agriculture, emergency response, and more. If it involves a drone, we've probably done something close.\n\nTell me a bit about what you're working on and I'll let you know exactly how we can help." + CLOSING
+    faa: "Yes — all of our pilots are FAA Part 107 certified, which is the commercial drone license required for any paid flight. And we're fully insured.\n\nIf you need a copy of the certificate or a certificate of insurance for your project or site, just let us know and we'll get it over to you. Some project owners and property managers need that upfront and we're used to it.",
+
+    contact: "Easy! Here's the best way to get in touch:\n\n📞 Call or text: (305) 360-4217\n✉️ info@skylineintelgroup.com\n\nWe're available Monday through Saturday, 6 AM to 6 PM Eastern. Quotes and replies usually go out the same day — sometimes within the hour depending on when you reach out." + CLOSING,
+
+    fallback: "Hmm, I want to make sure I point you in the right direction! We handle all kinds of drone services — inspections, photography, mapping, construction docs, events, film work, agriculture, emergency response... honestly a lot.\n\nCan you tell me a little more about what you're looking for? Even just a general idea and I'll figure out exactly how we can help."
   };
 
+  function pick(arr) { return arr[Math.floor(Math.random() * arr.length)]; }
+
   function classify(t) {
-    t = t.toLowerCase();
-    if (/\b(sport|game|stadium|tournament|football|soccer|basketball|baseball|match|field|court|league|event|live.event)\b/.test(t)) return R.sports;
-    if (/\b(search|rescue|disaster|emergency|flood|hurricane|storm.response)\b/.test(t)) return R.searchrescue;
-    if (/\b(agricult|crop|farm|field|irrigation|harvest|plant)\b/.test(t)) return R.agricultural;
-    if (/\b(cell.?tower|tower|transmission|antenna|infrastructure|power.line)\b/.test(t)) return R.tower;
-    if (/\b(film|commercial|ad|advertis|music.video|documentary|production)\b/.test(t)) return R.film;
-    if (/\b(map|survey|3d|gis|boundary|elevation|topograph|lidar)\b/.test(t)) return R.mapping;
-    if (/\b(roof|shingle|gutter|damage|flashing|leak)\b/.test(t)) return R.roof;
-    if (/\b(solar|thermal|panel|array|photovoltaic)\b/.test(t)) return R.solar;
-    if (/\b(construction|site|contractor|lender|progress|build)\b/.test(t)) return R.construction;
-    if (/\b(photo|video|cinema|listing|real.?estate|market|reel)\b/.test(t)) return R.photo;
-    if (/\b(custom|unique|unusual|special|different|weird|never|never.?done)\b/.test(t)) return R.custom;
-    if (/\b(faa|certif|licen|insur|legal|107|complian|certified)\b/.test(t)) return R.faa;
-    if (/\b(service|offer|do you|what can|what.?do|aerial|inspection|drone|everything)\b/.test(t)) return R.services;
-    if (/\b(where|area|location|florida|south fl|miami|broward|palm beach|state|travel|outside)\b/.test(t)) return R.area;
-    if (/\b(price|cost|rate|how much|quote|budget|fee|charge|afford)\b/.test(t)) return R.quote;
-    if (/\b(turnaround|how long|deliver|when|fast|quick|48|72|hour|timeline)\b/.test(t)) return R.turnaround;
-    if (/\b(contact|call|email|phone|reach|talk|speak|number)\b/.test(t)) return R.contact;
+    var l = t.toLowerCase();
+    if (/^(hi|hey|hello|howdy|sup|what'?s up|good morning|good afternoon|good evening|yo)\b/.test(l.trim())) return pick(R.hello);
+    if (/\b(thank|thanks|thank you|thx|ty|appreciate)\b/.test(l)) return pick(R.thanks);
+    if (/\b(sport|game|stadium|tournament|football|soccer|basketball|baseball|match|field|court|league|event|live.event)\b/.test(l)) return R.sports;
+    if (/\b(search|rescue|disaster|emergency|flood|hurricane|storm.response)\b/.test(l)) return R.searchrescue;
+    if (/\b(agricult|crop|farm|irrigation|harvest)\b/.test(l)) return R.agricultural;
+    if (/\b(cell.?tower|tower|transmission|antenna|infrastructure|power.line)\b/.test(l)) return R.tower;
+    if (/\b(film|commercial|ad|advertis|music.video|documentary|production)\b/.test(l)) return R.film;
+    if (/\b(map|survey|3d|gis|boundary|elevation|topograph|lidar)\b/.test(l)) return R.mapping;
+    if (/\b(roof|shingle|gutter|damage|flashing|leak)\b/.test(l)) return R.roof;
+    if (/\b(solar|thermal|panel|array|photovoltaic)\b/.test(l)) return R.solar;
+    if (/\b(construction|site|contractor|lender|progress|build)\b/.test(l)) return R.construction;
+    if (/\b(photo|video|cinema|listing|real.?estate|market|reel)\b/.test(l)) return R.photo;
+    if (/\b(custom|unique|unusual|special|different|weird|never.?done)\b/.test(l)) return R.custom;
+    if (/\b(faa|certif|licen|insur|legal|107|complian|certified)\b/.test(l)) return R.faa;
+    if (/\b(service|offer|do you|what can|what.?do|aerial|inspection|drone|everything)\b/.test(l)) return R.services;
+    if (/\b(where|area|location|florida|south fl|miami|broward|palm beach|state|travel|outside)\b/.test(l)) return R.area;
+    if (/\b(price|cost|rate|how much|quote|budget|fee|charge|afford)\b/.test(l)) return R.quote;
+    if (/\b(turnaround|how long|deliver|when|fast|quick|48|72|hour|timeline)\b/.test(l)) return R.turnaround;
+    if (/\b(contact|call|email|phone|reach|talk|speak|number)\b/.test(l)) return R.contact;
     return R.fallback;
   }
 
@@ -1821,11 +1837,12 @@
 
   function respond(text) {
     typing();
-    var delay = 620 + Math.random() * 400;
+    var reply = classify(text);
+    var delay = 800 + Math.min(reply.length * 2, 1200) + Math.random() * 400;
     setTimeout(function () {
       var t = document.getElementById('chatTyping');
       if (t) t.remove();
-      addMsg(classify(text), 'bot');
+      addMsg(reply, 'bot');
     }, delay);
   }
 
