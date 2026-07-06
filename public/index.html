@@ -630,6 +630,63 @@
       stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round;
     }
 
+    /* ── PILOT SECTION ───────────────────────────────────────────── */
+    .pilot-section {
+      background: var(--bg); padding: 100px 0;
+      border-top: 1px solid var(--border);
+    }
+    .pilot-inner {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: start;
+    }
+    .pilot-left .section-tag { margin-bottom: 16px; }
+    .pilot-left h2 { font-family: var(--fd); font-size: clamp(32px,4vw,50px); color: var(--fg); line-height: 1.05; margin-bottom: 20px; }
+    .pilot-left p { color: rgba(255,255,255,0.65); font-size: 15px; line-height: 1.7; margin-bottom: 28px; }
+    .pilot-perks { list-style: none; display: flex; flex-direction: column; gap: 12px; }
+    .pilot-perks li { display: flex; align-items: flex-start; gap: 10px; color: rgba(255,255,255,0.75); font-size: 14px; line-height: 1.5; }
+    .pilot-perks li::before { content: ''; display: block; width: 7px; height: 7px; border-radius: 50%; background: var(--blue); flex-shrink: 0; margin-top: 5px; }
+    .pilot-form-wrap {
+      background: var(--navy); border: 1px solid var(--border); border-radius: 12px; padding: 40px;
+    }
+    .pilot-form-wrap h3 { font-family: var(--fd); font-size: 22px; color: var(--fg); margin-bottom: 6px; }
+    .pilot-form-wrap p { font-size: 13px; color: rgba(255,255,255,0.5); margin-bottom: 28px; }
+    .pilot-field { display: flex; flex-direction: column; gap: 6px; margin-bottom: 18px; }
+    .pilot-field label { font-size: 11px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: rgba(255,255,255,0.5); }
+    .pilot-field input,
+    .pilot-field select,
+    .pilot-field textarea {
+      background: rgba(255,255,255,0.04); border: 1px solid var(--border);
+      border-radius: 6px; padding: 12px 14px; color: var(--fg); font-size: 14px;
+      font-family: var(--fb); width: 100%; transition: border-color 0.2s;
+      appearance: none; -webkit-appearance: none;
+    }
+    .pilot-field select {
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%230066FF' stroke-width='1.8' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
+      background-repeat: no-repeat; background-position: right 14px center; padding-right: 36px;
+    }
+    .pilot-field input:focus, .pilot-field select:focus, .pilot-field textarea:focus {
+      border-color: rgba(0,102,255,0.5); outline: none;
+    }
+    .pilot-field input::placeholder, .pilot-field textarea::placeholder { color: rgba(255,255,255,0.25); }
+    .pilot-field textarea { min-height: 90px; resize: vertical; }
+    .pilot-submit {
+      width: 100%; padding: 14px; background: var(--blue); color: #fff;
+      border: none; border-radius: 6px; font-family: var(--fd); font-size: 15px;
+      letter-spacing: 0.08em; cursor: pointer; transition: background 0.2s, transform 0.15s;
+      margin-top: 4px;
+    }
+    .pilot-submit:hover { background: #0055dd; transform: translateY(-1px); }
+    .pilot-success { display: none; text-align: center; padding: 40px 20px; }
+    .pilot-success .fs-icon { font-size: 36px; margin-bottom: 12px; color: var(--blue); }
+    .pilot-success h3 { font-family: var(--fd); font-size: 22px; color: var(--fg); margin-bottom: 8px; }
+    .pilot-success p { color: rgba(255,255,255,0.6); font-size: 14px; }
+    @media (max-width: 900px) {
+      .pilot-inner { grid-template-columns: 1fr; gap: 48px; }
+    }
+    @media (max-width: 768px) {
+      .pilot-section { padding: 72px 0; }
+      .pilot-form-wrap { padding: 28px 20px; }
+    }
+
     /* ── STADIUM AERIAL ──────────────────────────────────────────── */
     .stadium-aerial { width: 100%; }
     .stadium-img-wrap {
@@ -1457,6 +1514,72 @@
   </div>
 </section>
 
+<!-- ── PILOT SECTION ──────────────────────────────────────────────── -->
+<section class="pilot-section" id="pilots">
+  <div class="container">
+    <div class="pilot-inner">
+
+      <div class="pilot-left">
+        <div class="section-tag">Join the Team</div>
+        <h2>BECOME A<br>SKYLINE INTEL<br>PILOT</h2>
+        <p>We're always looking for skilled, certified drone pilots to expand our network across South Florida and beyond. If you take pride in your craft and want to fly with a team that holds the same standard — let's talk.</p>
+        <ul class="pilot-perks">
+          <li>FAA Part 107 certification required</li>
+          <li>Flexible schedule — fly on your terms</li>
+          <li>Work on inspections, real estate, events, and more</li>
+          <li>Join a growing team with real opportunities</li>
+          <li>South Florida based — statewide opportunities available</li>
+        </ul>
+      </div>
+
+      <div class="pilot-form-wrap">
+        <h3>PILOT APPLICATION</h3>
+        <p>Fill out the form below and we'll be in touch.</p>
+        <form id="pilotForm" onsubmit="submitPilot(event)">
+          <input type="hidden" name="_subject" value="Pilot Application — Skyline Intel"/>
+          <div class="pilot-field">
+            <label>Full Name *</label>
+            <input type="text" name="name" placeholder="John Smith" required/>
+          </div>
+          <div class="pilot-field">
+            <label>Email Address *</label>
+            <input type="email" name="email" placeholder="john@email.com" required/>
+          </div>
+          <div class="pilot-field">
+            <label>FAA Part 107 Certified *</label>
+            <select name="faa_certified" required>
+              <option value="" disabled selected>Select one...</option>
+              <option value="Yes">Yes</option>
+              <option value="No">No</option>
+            </select>
+          </div>
+          <div class="pilot-field">
+            <label>Years of Drone Experience *</label>
+            <select name="experience" required>
+              <option value="" disabled selected>Select range...</option>
+              <option value="0-1 years">0 – 1 years</option>
+              <option value="2-5 years">2 – 5 years</option>
+              <option value="6-10 years">6 – 10 years</option>
+              <option value="10+ years">10+ years</option>
+            </select>
+          </div>
+          <div class="pilot-field">
+            <label>Equipment Owned</label>
+            <textarea name="equipment" placeholder="List your drones, cameras, and any specialized gear..."></textarea>
+          </div>
+          <button type="submit" class="pilot-submit" id="pilotSubmitBtn">SUBMIT APPLICATION</button>
+        </form>
+        <div class="pilot-success" id="pilotSuccess">
+          <div class="fs-icon">✓</div>
+          <h3>Application Received</h3>
+          <p>Thanks for your interest in flying with Skyline Intel. We'll review your application and reach out soon.</p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
 <!-- ── FOOTER ───────────────────────────────────────────────────────── -->
 <footer>
   <div class="container">
@@ -1885,6 +2008,30 @@
 </script>
 
 <script>
+function submitPilot(e) {
+  e.preventDefault();
+  var btn = document.getElementById('pilotSubmitBtn');
+  btn.disabled = true; btn.textContent = 'Sending...';
+  var form = document.getElementById('pilotForm');
+  var formData = new FormData(form);
+  fetch('https://formspree.io/f/xwvdvroq', {
+    method: 'POST',
+    body: formData,
+    headers: { 'Accept': 'application/json' }
+  }).then(function(res) {
+    if (res.ok) {
+      form.style.display = 'none';
+      document.getElementById('pilotSuccess').style.display = 'block';
+    } else {
+      btn.disabled = false; btn.textContent = 'SUBMIT APPLICATION';
+      alert('Something went wrong. Please try again or call (305) 360-4217.');
+    }
+  }).catch(function() {
+    btn.disabled = false; btn.textContent = 'SUBMIT APPLICATION';
+    alert('Network error. Please try again or call (305) 360-4217.');
+  });
+}
+
 function submitQuote(e) {
   e.preventDefault();
   var btn = document.getElementById('formSubmitBtn');
