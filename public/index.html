@@ -840,32 +840,74 @@
       .services-grid { grid-template-columns: repeat(2, 1fr); }
       .pricing-grid { grid-template-columns: 1fr; }
       .footer-grid { grid-template-columns: 1fr; gap: 32px; }
-      /* Sporting Events — span both tablet columns, center below Photo + Data */
       .svc-6 { grid-column: 1 / span 2; width: 50%; justify-self: center; }
     }
     @media (max-width: 600px) {
+      /* ── Nav ── */
       .nav-links { display: none; }
-      .nav-inner { padding: 0 20px; }
-      .container { padding: 0 20px; }
-      .hero { padding: 90px 20px 40px; display: flex; flex-direction: column; }
-      .services-grid { grid-template-columns: 1fr; }
-      .pricing-grid { grid-template-columns: 1fr; }
-      .hero-stats { gap: 24px; }
-      .footer-bottom { flex-direction: column; text-align: center; }
+      .nav-inner { padding: 0 18px; height: 60px; }
       .nav-hamburger { display: flex; }
-      .svc-6 { grid-column: auto; width: 100%; justify-self: stretch; }
-      /* Mobile — side by side: text left, drone right */
-      .hero { flex-direction: row; align-items: center; flex-wrap: nowrap; gap: 0; }
-      .hero-content { flex: 1; position: relative; z-index: 2; min-width: 0; }
-      .hero-speedlines {
-        position: relative;
-        width: 160px;
-        height: 260px;
-        flex-shrink: 0;
-        right: auto;
-        top: auto;
-        bottom: auto;
+      .logo-sl { width: 40px; height: 34px; }
+      .logo-name { font-size: 15px; }
+      .logo-sub { font-size: 6.5px; }
+
+      /* ── Layout ── */
+      .container { padding: 0 18px; }
+
+      /* ── Hero ── */
+      .hero {
+        padding: 80px 18px 36px;
+        display: flex; flex-direction: row;
+        align-items: center; flex-wrap: nowrap; gap: 0;
       }
+      .hero-content { flex: 1; position: relative; z-index: 2; min-width: 0; }
+      .hero-title { font-size: clamp(36px, 10vw, 52px); }
+      .hero-sub { font-size: 13px; line-height: 1.6; margin-bottom: 20px; }
+      .hero-ctas { flex-direction: column; gap: 10px; }
+      .hero-ctas .btn-blue, .hero-ctas .btn-outline { width: 100%; text-align: center; justify-content: center; padding: 13px 20px; }
+      .hero-stats { gap: 16px; margin-top: 24px; flex-wrap: wrap; }
+      .hero-stat-num { font-size: 26px; }
+      .hero-stat-label { font-size: 9px; }
+      .hero-speedlines {
+        position: relative; width: 140px; height: 230px;
+        flex-shrink: 0; right: auto; top: auto; bottom: auto;
+      }
+
+      /* ── Sections ── */
+      .services { padding: 64px 0; }
+      .services-grid { grid-template-columns: 1fr; gap: 12px; }
+      .svc-6 { grid-column: auto; width: 100%; justify-self: stretch; }
+      .section-head { font-size: clamp(28px, 8vw, 42px); }
+      .section-sub { font-size: 14px; }
+
+      /* ── Industries / Pricing ── */
+      .pricing { padding: 64px 0; }
+      .pricing-grid { grid-template-columns: 1fr; }
+      .price-card { padding: 24px 20px; }
+
+      /* ── Why Us ── */
+      .why-section { padding: 64px 0; }
+      .why-inner { gap: 40px; }
+
+      /* ── Quote / Contact ── */
+      .contact-section { padding: 64px 0; }
+      .cta-contact { flex-direction: column; gap: 12px; }
+      .cc { padding: 14px 16px; width: 100%; }
+
+      /* ── Pilot Section ── */
+      .pilot-section { padding: 64px 0; }
+      .pilot-inner { gap: 40px; }
+      .pilot-form-wrap { padding: 24px 18px; }
+      .pilot-left h2 { font-size: clamp(30px, 9vw, 44px); }
+
+      /* ── Footer ── */
+      .footer-grid { grid-template-columns: 1fr; gap: 28px; }
+      .footer-bottom { flex-direction: column; gap: 10px; text-align: center; }
+      footer { padding: 48px 0 28px; }
+      .footer-links { flex-direction: column; gap: 6px; }
+
+      /* ── Ticker ── */
+      .ticker { padding: 10px 0; }
     }
 
     /* ── HAMBURGER BUTTON ────────────────────────────────────────── */
