@@ -244,12 +244,12 @@
       padding-top: 40px; border-top: 1px solid var(--border); flex-wrap: wrap;
     }
     .stat-v {
-      font-family: var(--fd); font-size: 44px; letter-spacing: 0.03em;
+      font-family: var(--fd); font-size: 56px; letter-spacing: 0.03em;
       color: var(--fg); line-height: 1;
     }
     .stat-l {
-      font-size: 10px; font-weight: 700; letter-spacing: 0.12em;
-      text-transform: uppercase; color: var(--muted); margin-top: 5px;
+      font-size: 10px; font-weight: 700; letter-spacing: 0.14em;
+      text-transform: uppercase; color: var(--blue); margin-top: 6px;
     }
 
     /* ── TICKER ───────────────────────────────────────────────────── */
@@ -479,6 +479,16 @@
       transition: transform 0.3s; z-index: 3;
     }
     .svc:hover::after { transform: scaleX(1); }
+    /* Blue left border accent on hover */
+    .svc::before {
+      content: ''; position: absolute; top: 0; left: 0; bottom: 0;
+      width: 3px; background: var(--blue);
+      transform: scaleY(0); transform-origin: bottom;
+      transition: transform 0.35s cubic-bezier(0.22,1,0.36,1); z-index: 3;
+    }
+    .svc:hover::before { transform: scaleY(1); }
+    .svc:hover .svc-name { color: #fff; letter-spacing: 0.1em; }
+    .svc-name { transition: letter-spacing 0.3s; }
 
     /* ── WHY SECTION ──────────────────────────────────────────────── */
     .why { background: var(--navy); padding: 100px 0; }
@@ -1011,6 +1021,63 @@
     .form-success h3 { font-family: var(--fd); font-size: 26px; letter-spacing: 0.06em; margin-bottom: 8px; }
     .form-success p { font-size: 13px; color: var(--muted); }
     @media (max-width: 600px) { .form-row { grid-template-columns: 1fr; } }
+
+    /* ── NAV SCROLL STATE ────────────────────────────────────────── */
+    nav.scrolled {
+      background: rgba(7,18,34,0.98);
+      border-bottom-color: rgba(0,102,255,0.18);
+      box-shadow: 0 4px 32px rgba(0,0,0,0.35);
+    }
+
+    /* ── SCROLL INDICATOR ────────────────────────────────────────── */
+    .scroll-indicator {
+      position: absolute; bottom: 36px; left: 50%; transform: translateX(-50%);
+      z-index: 10; display: flex; flex-direction: column; align-items: center; gap: 6px;
+      opacity: 0; animation: heroRise 0.6s ease 1.4s forwards;
+    }
+    .scroll-indicator span {
+      font-size: 9px; font-weight: 700; letter-spacing: 0.18em;
+      text-transform: uppercase; color: var(--muted);
+    }
+    .scroll-chevron {
+      width: 20px; height: 20px;
+      animation: bounce 1.8s ease-in-out infinite;
+    }
+    @keyframes bounce {
+      0%, 100% { transform: translateY(0); opacity: 0.5; }
+      50% { transform: translateY(6px); opacity: 1; }
+    }
+
+    /* ── FOOTER ACCENT ───────────────────────────────────────────── */
+    footer {
+      border-top: 2px solid var(--blue) !important;
+      box-shadow: 0 -1px 40px rgba(0,102,255,0.08);
+    }
+
+    /* ── QUOTE FORM — 2 column desktop ──────────────────────────── */
+    @media (min-width: 768px) {
+      .quote-form-wrap { max-width: 860px; }
+      .quote-desktop-grid {
+        display: grid; grid-template-columns: 1fr 1fr; gap: 0 24px;
+      }
+      .quote-desktop-full { grid-column: 1 / -1; }
+    }
+
+    /* ── PILOT SECTION — better balance ──────────────────────────── */
+    .pilot-section { background: var(--navy-2); }
+    .pilot-inner { grid-template-columns: 1fr 1.1fr; gap: 96px; }
+    .pilot-left h2 { font-size: clamp(36px, 4.5vw, 58px); line-height: 1; }
+    .pilot-left p { font-size: 15px; color: rgba(255,255,255,0.7); }
+    .pilot-perks li { font-size: 15px; }
+    .pilot-form-wrap { padding: 48px; border-radius: 4px; }
+    .pilot-form-wrap h3 { font-size: 26px; letter-spacing: 0.08em; margin-bottom: 8px; }
+
+    /* ── SECTION RHYTHM ──────────────────────────────────────────── */
+    .services { padding: 112px 0; }
+    .why { padding: 112px 0; }
+    .pricing { padding: 112px 0; }
+    .cta-section { padding: 112px 0; }
+    .pilot-section { padding: 112px 0; }
   </style>
 <style data-od-tweaks-bridge-style>
 [data-od-tweaks-hidden] .tw-panel {
@@ -1114,6 +1181,12 @@
   <div class="hero-horizon"></div>
   <div class="hero-glow hg1"></div>
   <div class="hero-glow hg2"></div>
+  <div class="scroll-indicator">
+    <span>Scroll</span>
+    <svg class="scroll-chevron" viewBox="0 0 20 20" fill="none" stroke="rgba(255,255,255,0.5)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+      <polyline points="4,7 10,13 16,7"></polyline>
+    </svg>
+  </div>
 
   <!-- Diagonal brand speed lines (right side) -->
   <div class="hero-speedlines">
@@ -1473,45 +1546,43 @@
     <div class="quote-form-wrap">
       <h3>REQUEST A QUOTE</h3>
       <form id="quoteForm" onsubmit="submitQuote(event)">
-        <div class="form-row">
+        <div class="quote-desktop-grid">
           <div class="form-group"><label>First Name *</label><input type="text" name="firstName" placeholder="John" required/></div>
           <div class="form-group"><label>Last Name *</label><input type="text" name="lastName" placeholder="Smith" required/></div>
-        </div>
-        <div class="form-row">
           <div class="form-group"><label>Email *</label><input type="email" name="email" placeholder="john@example.com" required/></div>
           <div class="form-group"><label>Phone</label><input type="tel" name="phone" placeholder="(305) 000-0000"/></div>
+          <div class="form-group quote-desktop-full"><label>Property / Project Address</label><input type="text" name="address" placeholder="123 Main St, Miami, FL"/></div>
+          <div class="form-group">
+            <label>Service Needed *</label>
+            <select name="service" required>
+              <option value="" disabled selected>Select a service...</option>
+              <option>Aerial Inspection</option>
+              <option>Roof Inspection</option>
+              <option>Solar Panel Inspection</option>
+              <option>Construction Monitoring</option>
+              <option>Photography &amp; Videography</option>
+              <option>3D Mapping / Surveying</option>
+              <option>Agricultural Imaging</option>
+              <option>Film / Commercial Production</option>
+              <option>Sporting Event Coverage</option>
+              <option>Search &amp; Rescue / Disaster Response</option>
+              <option>Insurance Documentation</option>
+              <option>Other / Custom Project</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>Timeline</label>
+            <select name="timeline">
+              <option value="" disabled selected>When do you need this?</option>
+              <option>ASAP / Rush</option>
+              <option>Within 1 week</option>
+              <option>Within 2 weeks</option>
+              <option>Within a month</option>
+              <option>Just planning ahead</option>
+            </select>
+          </div>
+          <div class="form-group quote-desktop-full"><label>Project Details</label><textarea name="message" placeholder="Tell us about your property, scope, or any special requirements..."></textarea></div>
         </div>
-        <div class="form-group"><label>Property / Project Address</label><input type="text" name="address" placeholder="123 Main St, Miami, FL"/></div>
-        <div class="form-group">
-          <label>Service Needed *</label>
-          <select name="service" required>
-            <option value="" disabled selected>Select a service...</option>
-            <option>Aerial Inspection</option>
-            <option>Roof Inspection</option>
-            <option>Solar Panel Inspection</option>
-            <option>Construction Monitoring</option>
-            <option>Photography &amp; Videography</option>
-            <option>3D Mapping / Surveying</option>
-            <option>Agricultural Imaging</option>
-            <option>Film / Commercial Production</option>
-            <option>Sporting Event Coverage</option>
-            <option>Search &amp; Rescue / Disaster Response</option>
-            <option>Insurance Documentation</option>
-            <option>Other / Custom Project</option>
-          </select>
-        </div>
-        <div class="form-group">
-          <label>Timeline</label>
-          <select name="timeline">
-            <option value="" disabled selected>When do you need this?</option>
-            <option>ASAP / Rush</option>
-            <option>Within 1 week</option>
-            <option>Within 2 weeks</option>
-            <option>Within a month</option>
-            <option>Just planning ahead</option>
-          </select>
-        </div>
-        <div class="form-group"><label>Project Details</label><textarea name="message" placeholder="Tell us about your property, scope, or any special requirements..."></textarea></div>
         <button type="submit" class="form-submit" id="formSubmitBtn">Send Quote Request</button>
       </form>
       <div class="form-success" id="formSuccess">
@@ -2034,6 +2105,17 @@
 
   sendBtn.addEventListener('click', send);
   input.addEventListener('keydown', function (e) { if (e.key === 'Enter') send(); });
+})();
+
+/* ── Nav scroll effect ── */
+(function() {
+  var nav = document.querySelector('nav');
+  var indicator = document.querySelector('.scroll-indicator');
+  window.addEventListener('scroll', function() {
+    var scrolled = window.scrollY > 60;
+    nav.classList.toggle('scrolled', scrolled);
+    if (indicator) indicator.style.opacity = scrolled ? '0' : '';
+  }, { passive: true });
 })();
 </script>
 
