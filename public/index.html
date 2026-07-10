@@ -1911,15 +1911,16 @@
 
     <div class="chat-header">
       <div class="chat-avatar">A</div>
-      <div>
+      <div style="flex:1">
         <div class="chat-hname">Aerial</div>
         <div class="chat-hstatus"><span class="chat-dot"></span> Sales Consultant · Online</div>
       </div>
+      <button id="chatLangBtn" aria-label="Switch language" style="background:rgba(0,102,255,0.15);border:1px solid rgba(0,102,255,0.4);color:#4d9fff;font-family:'Montserrat',sans-serif;font-size:10px;font-weight:700;letter-spacing:0.06em;padding:4px 9px;border-radius:20px;cursor:pointer;transition:background 0.2s;">ES</button>
     </div>
 
     <div class="chat-msgs" id="chatMsgs"></div>
 
-    <div class="chat-quick">
+    <div class="chat-quick" id="chatQuick">
       <button class="chat-qbtn" data-q="services">What can you do?</button>
       <button class="chat-qbtn" data-q="area">Where do you fly?</button>
       <button class="chat-qbtn" data-q="quote">Get a Quote</button>
@@ -1958,8 +1959,14 @@
     if (hour >= 17 || hour < 2)  return 'Good evening';
   }
 
-  var CLOSING = "\n\nSeriously, thank you for your interest in Skyline Intel. We don't take that lightly and we're going to make sure you're taken care of.";
+  /* ── Language state ───────────────────────────────────────────── */
+  var lang = 'en';
+  var fallbackCount = 0;
 
+  var CLOSING = "\n\nSeriously, thank you for your interest in Skyline Intel. We don't take that lightly and we're going to make sure you're taken care of.";
+  var CLOSING_ES = "\n\nDe verdad, gracias por su interés en Skyline Intel. No lo tomamos a la ligera y nos aseguraremos de que quede bien atendido.";
+
+  /* ── ENGLISH responses ────────────────────────────────────────── */
   var R = {
     welcome: getGreeting() + "! You've reached Skyline Intel — I'm Aerial, I handle client relations here. So glad you stopped by. What can I help you with?",
 
@@ -2013,37 +2020,138 @@
     contact: "Of course! Here's everything you need:\n\n📞 Call or text: (305) 360-4217\n✉️ info@skylineintelgroup.com\n\nMonday through Saturday, 6 AM to 6 PM Eastern. We're responsive — most people hear back same day, often within the hour. Don't hesitate, we genuinely want to hear from you." + CLOSING,
 
     fallback: [
-      "I want to make sure I actually help you here, not just give you a generic answer. We cover a lot of ground — inspections, photography, mapping, construction monitoring, events, film, agriculture, emergency response, custom work...\n\nJust tell me a little more about what's going on and I'll figure out exactly what we can do for you. I'm in no rush.",
-      "Hmm, let me make sure I get you the right info. Can you give me a little more context on what you're looking for? I'd rather ask than point you in the wrong direction — that's not helpful to anyone.",
-      "I hear you — let me make sure I give you something useful. What's the situation you're dealing with? Once I understand a bit more, I can tell you exactly how we'd approach it."
-    ]
+      "I want to make sure I actually help you — can you tell me a little more about what you're looking for? We do a lot: inspections, photography, mapping, construction monitoring, events, film, agriculture... just point me in the right direction and I've got you.",
+      "I'm not quite following yet and I don't want to guess wrong. Can you give me a little more detail? I'm right here and I'm not going anywhere until we figure this out together.",
+      "Help me help you — what's the project or situation? Even just a sentence or two and I'll know exactly where to take this."
+    ],
+
+    fallback2: "I really want to get you the right answer here — I'm just not quite connecting the dots yet. Could you try describing it a different way? Or if it's easier, just call us directly and talk it through:\n📞 (305) 360-4217\n✉️ info@skylineintelgroup.com — we respond fast.",
+
+    fallback3: "You know what, rather than us going back and forth, let me just connect you with someone who can help you properly. Give us a call or shoot us a message and they'll take care of you from there:\n📞 (305) 360-4217\n✉️ info@skylineintelgroup.com\n\nWe're here Monday–Saturday, 6 AM to 6 PM ET."
+  };
+
+  /* ── SPANISH responses ────────────────────────────────────────── */
+  var RS = {
+    welcome: "¡Bienvenido a Skyline Intel! Soy Aerial, me encargo de las relaciones con los clientes aquí. Qué bueno que nos visitó. ¿En qué le puedo ayudar hoy?",
+
+    hello: [
+      "¡Hola, bienvenido! Me alegra que esté aquí. Soy Aerial — ¿cómo le puedo ayudar?",
+      "¡Hola! Soy Aerial, estoy aquí para ayudarle con lo que necesite de Skyline Intel. ¿Qué busca?",
+      "¡Buenas! No hay prisa — cuénteme qué está buscando y lo resolvemos juntos."
+    ],
+
+    thanks: [
+      "¡Claro que sí! Para eso estoy aquí. ¿Hay algo más en lo que le pueda ayudar?",
+      "¡Con mucho gusto! Me encanta ayudar a la gente a encontrar la solución correcta. ¿Algo más?",
+      "¡Feliz de ayudar! Merece una respuesta directa y siempre haré lo posible por dársela. ¿Algo más?"
+    ],
+
+    services: [
+      "¡Hacemos muchísimas cosas! Le cuento rápido:\n\n• **Fotografía y Video Aéreo** — imágenes 4K, recorridos cinematográficos, contenido inmobiliario\n• **Inspecciones Aéreas** — techos, paneles solares, torres, documentación de seguros\n• **Mapeo 3D y Topografía** — mapas de sitio, datos de elevación, paquetes GIS completos\n• **Monitoreo de Construcción** — vuelos semanales de progreso para contratistas y prestamistas\n• **Eventos Deportivos** — cobertura de estadios, juegos, torneos\n• **Cine y Comerciales** — metraje aéreo para anuncios, videos musicales, producciones\n• **Imágenes Agrícolas** — salud de cultivos, análisis de irrigación, inspecciones de campo\n• **Búsqueda y Rescate** — imagen térmica, despliegue rápido, apoyo de emergencia\n• **Personalizado** — si involucra un dron, pregúntenos\n\nMe encanta hablar de todo esto — cuénteme en qué está trabajando y le digo exactamente qué podemos hacer.",
+      "¡Por supuesto! Cubrimos una amplia gama de servicios aéreos: inspecciones, fotografía, mapeo, documentación de construcción, eventos deportivos, cine, agricultura, emergencias y trabajos personalizados. ¿Cuál es su situación?"
+    ],
+
+    sports: "La cobertura deportiva es de las cosas más increíbles que hacemos. Ver un evento en vivo desde arriba es algo completamente diferente — la multitud, el campo, la energía... ninguna cámara en tierra se compara.\n\nHemos cubierto desde torneos locales hasta grandes estadios. Resúmenes del día del juego, feeds aéreos en vivo, paquetes completos — lo adaptamos a lo que necesite.\n\nComuníquese y lo armamos juntos:\n📞 (305) 360-4217\n✉️ info@skylineintelgroup.com",
+
+    area: "Nuestra base es el sur de Florida — Miami-Dade, Broward y Palm Beach. Estamos ahí constantemente. También volamos por todo el estado de Florida.\n\n¿Fuera de Florida? Comuníquese de todas formas. Según el proyecto lo hemos hecho funcionar. No decimos que no antes de escuchar.\n\n📞 (305) 360-4217 — llámenos y conversamos.",
+
+    quote: "Entiendo perfectamente querer saber los costos de antemano — quisiera poder darle un número aquí mismo, pero el precio realmente depende de muchos factores y no quisiera darle algo inexacto.\n\nLo mejor es conectarlo con alguien que pueda evaluar el proyecto correctamente. Le atenderán muy bien:\n\n📞 (305) 360-4217\n✉️ info@skylineintelgroup.com\n\nLunes a sábado, 6 AM a 6 PM — respuesta el mismo día, sin rodeos." + CLOSING_ES,
+
+    turnaround: "De 48 a 72 horas desde el vuelo — ese es nuestro estándar y lo cumplimos. La mayoría de los clientes se sorprende de lo rápido que reciben sus entregables.\n\nSi surge algo — retraso por clima, entregables más complejos — se lo avisamos antes, no después. Y si tiene prisa, llámenos directamente:\n📞 (305) 360-4217",
+
+    roof: "Las inspecciones de techos son muy importantes para nosotros, especialmente aquí en el sur de Florida donde la temporada de huracanes es seria. Volamos toda la propiedad, documentamos cada centímetro — tejas, tapajuntas, canaletas — fotos con GPS, hallazgos anotados y un reporte PDF listo para su aseguradora.\n\nSin escaleras. Sin riesgos. Sin nadie en su techo. Los administradores de propiedades y ajustadores nos prefieren exactamente por eso.\n\nPara programar algo, contáctenos:\n📞 (305) 360-4217\n✉️ info@skylineintelgroup.com",
+
+    solar: "Las inspecciones térmicas de paneles solares son una de las inversiones más inteligentes que puede hacer un propietario. Se sorprendería cuántos paneles están bajo rendimiento y nadie lo sabe porque desde el suelo parecen bien.\n\nVolamos con cámara térmica, construimos un mapa panel por panel, señalamos los que están fallando y le damos un estimado del impacto en eficiencia. Rápido y sin necesidad de subir al techo.\n\nLlámenos y hablamos de su instalación:\n📞 (305) 360-4217",
+
+    construction: "El monitoreo de construcción es algo en lo que creo mucho — casi todos dicen \"ojalá hubiera empezado antes\" cuando ven lo que hace.\n\nVuelos semanales, mapeo 3D del sitio, documentación de progreso desde arriba, reportes para prestamistas — detecta problemas antes de que se vuelvan costosos. Y mostrarle a un inversionista metraje aéreo real del avance del proyecto es mucho más poderoso que una hoja de cálculo.\n\nTrabajamos con contratistas, desarrolladores y propietarios regularmente. Llámenos:\n📞 (305) 360-4217",
+
+    photo: "La fotografía y video aéreo es donde mucha gente nos encuentra primero — y es uno de los servicios de los que más me enorgullezco. Imágenes 4K, recorridos cinematográficos, tomas al atardecer — todo entregado en 48 horas.\n\nYa sea una propiedad que necesita moverse rápido o una campaña completa de marketing, hacemos que se vea como merece. Contáctenos:\n📞 (305) 360-4217\n✉️ info@skylineintelgroup.com",
+
+    mapping: "Mapeo 3D y topografía aérea — sí, absolutamente lo hacemos. Mapas de sitio, superposiciones de límites, datos de elevación, entregables GIS. Muy útil para due diligence, planificación de desarrollo, documentación legal.\n\nSi eso es lo que busca, nos encantaría ayudar. Comuníquese:\n📞 (305) 360-4217",
+
+    tower: "Torres celulares, líneas de transmisión, antenas, infraestructura eléctrica — sí, manejamos todo eso. Los drones son la herramienta correcta para esto: más seguros, más rápidos y la documentación que entregamos es más completa.\n\nSeñalamos problemas estructurales, anotamos todo y le damos un reporte sobre el que puede actuar. Si tiene infraestructura que revisar, llámenos:\n📞 (305) 360-4217",
+
+    agricultural: "Las imágenes agrícolas hacen una diferencia real para quienes manejan grandes extensiones. Mapeo de salud de cultivos, análisis de irrigación, densidad de plantas — todo desde arriba, con el cronograma que necesite su operación.\n\nSi quiere mejor visibilidad de lo que pasa en su terreno, nos encantaría trabajar con usted. Contáctenos:\n📞 (305) 360-4217",
+
+    film: "El trabajo de cine y comerciales es algo que amamos hacer. Metraje aéreo para anuncios, videos musicales, documentales, contenido de marca... si necesita esa perspectiva cinematográfica desde arriba, somos nosotros.\n\nCada producción es diferente así que me encantaría escuchar en qué está trabajando:\n📞 (305) 360-4217\n✉️ info@skylineintelgroup.com",
+
+    searchrescue: "Apoyamos búsqueda, rescate y respuesta a desastres — despliegue aéreo rápido, imagen térmica, apoyo en tiempo real para equipos de emergencia en el terreno. Este es un trabajo serio y lo tratamos como tal.\n\nSi algo es urgente, no espere — llámenos directamente:\n📞 (305) 360-4217",
+
+    custom: "Me encanta cuando la gente trae algo diferente. No somos el tipo de empresa que dice no antes de escuchar la idea. Hemos tomado muchos proyectos que no encajaban en una categoría y los resolvimos.\n\nCuénteme qué tiene en mente. Incluso si está a medias, hablemos:\n📞 (305) 360-4217\n✉️ info@skylineintelgroup.com",
+
+    faa: "Sí — cada piloto en nuestro equipo tiene la certificación FAA Parte 107, que es la licencia comercial requerida para cualquier operación de drones pagada. También estamos completamente asegurados.\n\nSi necesita documentación — copias de certificados, un COI para su proyecto — solo avísenos:\n✉️ info@skylineintelgroup.com",
+
+    contact: "¡Por supuesto! Aquí tiene todo lo que necesita:\n\n📞 Llamar o enviar mensaje: (305) 360-4217\n✉️ info@skylineintelgroup.com\n\nLunes a sábado, 6 AM a 6 PM hora del Este. Respondemos rápido — la mayoría escucha de nosotros el mismo día, muchas veces en menos de una hora." + CLOSING_ES,
+
+    fallback: [
+      "Quiero asegurarme de ayudarle bien — ¿puede contarme un poco más sobre lo que busca? Hacemos muchas cosas: inspecciones, fotografía, mapeo, construcción, eventos, cine, agricultura... solo oriénteme y lo atiendo.",
+      "Todavía no estoy captando bien y no quiero adivinar. ¿Puede darme un poco más de detalle? Aquí estoy y no me muevo hasta que lo resolvamos juntos.",
+      "Ayúdeme a ayudarle — ¿cuál es el proyecto o la situación? Con solo una o dos oraciones sabré exactamente hacia dónde llevarlo."
+    ],
+
+    fallback2: "Quiero darle la respuesta correcta — todavía no estoy conectando bien los puntos. ¿Podría describirlo de otra manera? O si es más fácil, llámenos directamente:\n📞 (305) 360-4217\n✉️ info@skylineintelgroup.com — respondemos rápido.",
+
+    fallback3: "Para que no sigamos dando vueltas, déjeme conectarle con alguien que le pueda ayudar mejor. Llámenos o escríbanos:\n📞 (305) 360-4217\n✉️ info@skylineintelgroup.com\n\nEstamos de lunes a sábado, 6 AM a 6 PM hora del Este."
   };
 
   function pick(arr) { return arr[Math.floor(Math.random() * arr.length)]; }
+  function getBank() { return lang === 'es' ? RS : R; }
 
   function classify(t) {
+    var B = getBank();
     var l = t.toLowerCase();
-    if (/^(hi|hey|hello|howdy|sup|what'?s up|good morning|good afternoon|good evening|yo)\b/.test(l.trim())) return pick(R.hello);
-    if (/\b(thank|thanks|thank you|thx|ty|appreciate)\b/.test(l)) return pick(R.thanks);
-    if (/\b(sport|game|stadium|tournament|football|soccer|basketball|baseball|match|field|court|league|event|live.event)\b/.test(l)) return R.sports;
-    if (/\b(search|rescue|disaster|emergency|flood|hurricane|storm.response)\b/.test(l)) return R.searchrescue;
-    if (/\b(agricult|crop|farm|irrigation|harvest)\b/.test(l)) return R.agricultural;
-    if (/\b(cell.?tower|tower|transmission|antenna|infrastructure|power.line)\b/.test(l)) return R.tower;
-    if (/\b(film|commercial|ad|advertis|music.video|documentary|production)\b/.test(l)) return R.film;
-    if (/\b(map|survey|3d|gis|boundary|elevation|topograph|lidar)\b/.test(l)) return R.mapping;
-    if (/\b(roof|shingle|gutter|damage|flashing|leak)\b/.test(l)) return R.roof;
-    if (/\b(solar|thermal|panel|array|photovoltaic)\b/.test(l)) return R.solar;
-    if (/\b(construction|site|contractor|lender|progress|build)\b/.test(l)) return R.construction;
-    if (/\b(photo|video|cinema|listing|real.?estate|market|reel)\b/.test(l)) return R.photo;
-    if (/\b(custom|unique|unusual|special|different|weird|never.?done)\b/.test(l)) return R.custom;
-    if (/\b(faa|certif|licen|insur|legal|107|complian|certified)\b/.test(l)) return R.faa;
-    if (/\b(service|offer|do you|what can|what.?do|aerial|inspection|drone|everything)\b/.test(l)) return R.services;
-    if (/\b(where|area|location|florida|south fl|miami|broward|palm beach|state|travel|outside)\b/.test(l)) return R.area;
-    if (/\b(price|cost|rate|how much|quote|budget|fee|charge|afford)\b/.test(l)) return R.quote;
-    if (/\b(turnaround|how long|deliver|when|fast|quick|48|72|hour|timeline)\b/.test(l)) return R.turnaround;
-    if (/\b(contact|call|email|phone|reach|talk|speak|number)\b/.test(l)) return R.contact;
-    return R.fallback;
+    if (/^(hi|hey|hello|howdy|sup|what'?s up|good morning|good afternoon|good evening|yo|hola|buenas|buenos días|buenas tardes|buenas noches|saludos|qué tal)\b/.test(l.trim())) return pick(B.hello);
+    if (/\b(thank|thanks|thank you|thx|ty|appreciate|gracias|muchas gracias|te agradezco|se lo agradezco)\b/.test(l)) return pick(B.thanks);
+    if (/\b(sport|game|stadium|tournament|football|soccer|basketball|baseball|match|field|court|league|event|live.event|deport|estadio|torneo|partido|cancha|liga)\b/.test(l)) return B.sports;
+    if (/\b(search|rescue|disaster|emergency|flood|hurricane|storm.response|búsqueda|rescate|desastre|emergencia|inundaci|huracán)\b/.test(l)) return B.searchrescue;
+    if (/\b(agricult|crop|farm|irrigation|harvest|cultivo|irrigaci|cosecha|campo|siembra)\b/.test(l)) return B.agricultural;
+    if (/\b(cell.?tower|tower|transmission|antenna|infrastructure|power.line|torre|antena|infraestructura|línea)\b/.test(l)) return B.tower;
+    if (/\b(film|commercial|ad|advertis|music.video|documentary|production|cine|pelicula|película|comercial|anuncio|publicidad|video musical|documental|producción)\b/.test(l)) return B.film;
+    if (/\b(map|survey|3d|gis|boundary|elevation|topograph|lidar|mapa|topograf|elevaci|límite)\b/.test(l)) return B.mapping;
+    if (/\b(roof|shingle|gutter|damage|flashing|leak|techo|gotera|canalon|teja|daño)\b/.test(l)) return B.roof;
+    if (/\b(solar|thermal|panel|array|photovoltaic|solar|panel|térmico|fotovoltaico)\b/.test(l)) return B.solar;
+    if (/\b(construction|site|contractor|lender|progress|build|construcción|obra|contratista|avance|progreso)\b/.test(l)) return B.construction;
+    if (/\b(photo|video|cinema|listing|real.?estate|market|reel|foto|fotografía|video|propiedad|inmueble|listado|marketing)\b/.test(l)) return B.photo;
+    if (/\b(custom|unique|unusual|special|different|weird|never.?done|personaliz|especial|único|diferente|inusual)\b/.test(l)) return B.custom;
+    if (/\b(faa|certif|licen|insur|legal|107|complian|certified|certificad|licencia|seguro|legal)\b/.test(l)) return B.faa;
+    if (/\b(service|offer|do you|what can|what.?do|aerial|inspection|drone|everything|servicio|qué hace|qué ofrecen|dron|inspecci)\b/.test(l)) return pick(B.services);
+    if (/\b(where|area|location|florida|south fl|miami|broward|palm beach|state|travel|outside|dónde|ubicaci|área|florida|miami|viajan|vuelan)\b/.test(l)) return B.area;
+    if (/\b(price|cost|rate|how much|quote|budget|fee|charge|afford|precio|costo|cuánto|presupuesto|tarifa|cobran)\b/.test(l)) return B.quote;
+    if (/\b(turnaround|how long|deliver|when|fast|quick|48|72|hour|timeline|cuánto tarda|entrega|rápido|cuándo|tiempo)\b/.test(l)) return B.turnaround;
+    if (/\b(contact|call|email|phone|reach|talk|speak|number|contacto|llamar|correo|teléfono|hablar|número)\b/.test(l)) return B.contact;
+    /* Persistent fallback — escalate after 2 misses */
+    fallbackCount++;
+    if (fallbackCount >= 3) { fallbackCount = 0; return B.fallback3; }
+    if (fallbackCount === 2) return B.fallback2;
+    return pick(B.fallback);
   }
+
+  /* Language toggle */
+  var langBtn = document.getElementById('chatLangBtn');
+  var quickDiv = document.getElementById('chatQuick');
+
+  var quickLabels = {
+    en: ['What can you do?', 'Where do you fly?', 'Get a Quote', 'How fast?'],
+    es: ['¿Qué hacen?', '¿Dónde vuelan?', 'Solicitar Cotización', '¿Qué tan rápido?']
+  };
+
+  function setLanguage(l) {
+    lang = l;
+    fallbackCount = 0;
+    langBtn.textContent = l === 'en' ? 'ES' : 'EN';
+    var btns = quickDiv.querySelectorAll('.chat-qbtn');
+    var labels = quickLabels[l];
+    btns.forEach(function(b, i) { b.textContent = labels[i]; });
+    input.placeholder = l === 'es' ? 'Pregúntame lo que sea…' : 'Ask me anything…';
+  }
+
+  langBtn.addEventListener('click', function() {
+    setLanguage(lang === 'en' ? 'es' : 'en');
+    var B = getBank();
+    addMsg(lang === 'es'
+      ? "¡Hola! Cambié al español. ¿En qué le puedo ayudar?"
+      : "Switched back to English! What can I help you with?", 'bot');
+  });
 
   function addMsg(text, role) {
     var el = document.createElement('div');
@@ -2068,7 +2176,9 @@
 
   function respond(text) {
     typing();
+    var before = fallbackCount;
     var reply = classify(text);
+    if (fallbackCount === before && before > 0) fallbackCount = 0;
     var delay = 800 + Math.min(reply.length * 2, 1200) + Math.random() * 400;
     setTimeout(function () {
       var t = document.getElementById('chatTyping');
@@ -2085,8 +2195,7 @@
     respond(val);
   }
 
-  /* Quick reply map */
-  var qMap = { services: R.services, area: R.area, quote: R.quote, turnaround: R.turnaround };
+  var qKeys = ['services', 'area', 'quote', 'turnaround'];
 
   qBtns.forEach(function (btn) {
     btn.addEventListener('click', function () {
@@ -2096,7 +2205,9 @@
       setTimeout(function () {
         var t = document.getElementById('chatTyping');
         if (t) t.remove();
-        addMsg(qMap[q], 'bot');
+        var B = getBank();
+        var reply = Array.isArray(B[q]) ? pick(B[q]) : B[q];
+        addMsg(reply, 'bot');
       }, 580 + Math.random() * 200);
     });
   });
